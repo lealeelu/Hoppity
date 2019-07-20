@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     private bool playing = false;
+
+    public void EndGame()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,4 +38,22 @@ public class GameManager : MonoBehaviour
             
         }
     }
+
+    void ShowMainMenu()
+    {
+
+    }
+
+    void HideMainMenu()
+    {
+
+    }
+
+    void StartGame()
+    {
+        HideMainMenu();
+        playing = true;
+    }
+
+    
 }
