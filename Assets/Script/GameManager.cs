@@ -6,6 +6,16 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     private Frog frog;
+    [SerializeField]
+    private Map map;
+
+    // UI
+    [SerializeField]
+    private GameObject startPanel;
+    [SerializeField]
+    private GameObject hudPanel;
+    [SerializeField]
+    private GameObject gameOverPanel;
 
     public bool Playing
     {
@@ -19,7 +29,8 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame()
     {
-
+        _playing = false;
+        gameOverPanel.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -48,19 +59,17 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
-    void ShowMainMenu()
+    public void TryAgain()
     {
-
+        hudPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        startPanel.SetActive(true);
     }
-
-    void HideMainMenu()
+    
+    public void StartGame()
     {
-
-    }
-
-    void StartGame()
-    {
-        HideMainMenu();
+        startPanel.SetActive(false);
+        hudPanel.SetActive(true);
     }
 
     
