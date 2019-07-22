@@ -8,7 +8,8 @@ public class LillyPad : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.back * Time.deltaTime * speed);
+        if (GameManager.Instance.Playing)
+            transform.Translate(Vector3.back * Time.deltaTime * speed);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -5,7 +5,17 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
-    private bool playing = false;
+    private Frog frog;
+
+    public bool Playing
+    {
+        get
+        {
+            return _playing;
+        }
+    }
+
+    private bool _playing = false;
 
     public void EndGame()
     {
@@ -21,24 +31,23 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (playing)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                if (hit.transform.tag == "LillyPad")
                 {
-                    if (hit.transform.tag == "LillyPad")
-                    {
-                        //jump to that lillypad
-                    }
+                    //jump to that lillypad
+                    Debug.Log("HIT!");
+                    frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>());
+                    if (!_playing) _playing = true;       
                 }
             }
-            
         }
     }
-
+    
     void ShowMainMenu()
     {
 
@@ -52,7 +61,6 @@ public class GameManager : Singleton<GameManager>
     void StartGame()
     {
         HideMainMenu();
-        playing = true;
     }
 
     
