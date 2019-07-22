@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
-    private Frog frog;
+    public Frog frog;
     [SerializeField]
     private Map map;
 
@@ -36,13 +36,13 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        
+        startPanel.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!startPanel.activeSelf && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -51,8 +51,8 @@ public class GameManager : Singleton<GameManager>
                 if (hit.transform.tag == "LillyPad")
                 {
                     //jump to that lillypad
-                    Debug.Log("HIT!");
                     frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>());
+                    map.StartMap();
                     if (!_playing) _playing = true;       
                 }
             }
@@ -68,9 +68,9 @@ public class GameManager : Singleton<GameManager>
     
     public void StartGame()
     {
+        map.GenerateMap();
         startPanel.SetActive(false);
         hudPanel.SetActive(true);
     }
-
     
 }
