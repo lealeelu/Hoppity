@@ -10,8 +10,6 @@ public class Map : MonoBehaviour
     private int poolsize = 20;
     [SerializeField]
     private float spawnRate = 2f;
-    [SerializeField]
-    private float startDistance = 2f;
 
     [SerializeField]
     private float mapSpeed = 1f;
@@ -35,7 +33,7 @@ public class Map : MonoBehaviour
             if (i < starterPads)
             {
                 // set position
-                float newZ = (TopLeft.transform.position.z - BottomRight.transform.position.z)/6*i;
+                float newZ = (TopLeft.transform.position.z - BottomRight.transform.position.z)/starterPads*i;
                 pad.transform.position = new Vector3(GetRandX(), 0, newZ);
                 pad.gameObject.SetActive(true);
                 pad.enabled = false;
@@ -58,14 +56,15 @@ public class Map : MonoBehaviour
         {
             if (lillyPadPool[i].gameObject.activeSelf) lillyPadPool[i].enabled = true;
         }
+
+        gameStart = Time.time;
+        spawnTimer = spawnRate;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         LoadLillyPadPool();
-        gameStart = Time.time;
-        spawnTimer = 0;
     }
 
     // Update is called once per frame
