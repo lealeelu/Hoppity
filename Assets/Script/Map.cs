@@ -71,16 +71,23 @@ public class Map : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
-        spawnTimer += Time.deltaTime;
-
+        spawnTimer += Time.smoothDeltaTime;
+        //Debug.Log(spawnTimer);
         if (spawnTimer > spawnRate)
         {
-            LillyPad pad = GetInactiveLillyPad();
-            pad.transform.position = new Vector3(GetRandX(), 0, TopLeft.transform.position.z);
-            pad.speed = mapSpeed;
-            pad.gameObject.SetActive(true);
+            Debug.Log("spawn " + spawnTimer);
             spawnTimer = 0;
+            StartCoroutine(SpawnLilly());
         }
+    }
+
+    IEnumerator SpawnLilly()
+    {
+        LillyPad pad = GetInactiveLillyPad();
+        pad.gameObject.transform.position = new Vector3(GetRandX(), 0, TopLeft.transform.position.z);
+        pad.speed = mapSpeed;
+        pad.gameObject.SetActive(true);
+        yield return null;
     }
 
     void LoadLillyPadPool()

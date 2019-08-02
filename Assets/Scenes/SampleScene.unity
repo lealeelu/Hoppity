@@ -494,7 +494,7 @@ MonoBehaviour:
   lillyPadPrefab: {fileID: 3677190424246048342, guid: 692757d66da4bec408f9516da89c7625,
     type: 3}
   poolsize: 20
-  spawnRate: 1.4
+  spawnRate: 2
   mapSpeed: 5
   TopLeft: {fileID: 401508454}
   BottomRight: {fileID: 4492916}

@@ -42,7 +42,7 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (!startPanel.activeSelf && Input.GetMouseButtonDown(0))
+        if (!startPanel.activeSelf && !gameOverPanel.activeSelf && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -52,8 +52,11 @@ public class GameManager : Singleton<GameManager>
                 {
                     //jump to that lillypad
                     frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>());
-                    map.StartMap();
-                    if (!_playing) _playing = true;       
+                    if (!_playing)
+                    {
+                        _playing = true;
+                        map.StartMap();
+                    }
                 }
             }
         }
