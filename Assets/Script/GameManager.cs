@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using TMPro;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -16,6 +15,8 @@ public class GameManager : Singleton<GameManager>
     private GameObject hudPanel;
     [SerializeField]
     private GameObject gameOverPanel;
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
 
     public bool Playing
     {
@@ -52,16 +53,18 @@ public class GameManager : Singleton<GameManager>
                 {
                     //jump to that lillypad
                     frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>(), 2);
-                    if (!_playing)
-                    {
-                        _playing = true;
-                        map.StartMap();
-                    }
+                    if (!_playing) StartGame();
                 }
             }
         }
     }
-    
+
+    public void StartGame()
+    {
+        _playing = true;
+        map.StartMap();
+    }
+
     public void TryAgain()
     {
         hudPanel.SetActive(false);
@@ -69,11 +72,15 @@ public class GameManager : Singleton<GameManager>
         startPanel.SetActive(true);
     }
     
-    public void StartGame()
+    public void SetBoard()
     {
         map.GenerateMap();
         startPanel.SetActive(false);
         hudPanel.SetActive(true);
     }
-    
+
+    public void UpdateScore(float newScore)
+    {
+        scoreText.text = string.Format("D10", newScore);
+    }
 }
