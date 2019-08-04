@@ -51,7 +51,7 @@ public class GameManager : Singleton<GameManager>
                 if (hit.transform.tag == "LillyPad")
                 {
                     //jump to that lillypad
-                    frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>());
+                    frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>(), 2);
                     if (!_playing)
                     {
                         _playing = true;

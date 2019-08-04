@@ -42,7 +42,7 @@ public class Map : MonoBehaviour
                 if (i == 0)
                 {
                     // put frog on first lillypad
-                    GameManager.Instance.frog.JumpToLillyPad(pad);
+                    GameManager.Instance.frog.TeleportToLillyPad(pad);
                 }
             }
             else pad.gameObject.SetActive(false);

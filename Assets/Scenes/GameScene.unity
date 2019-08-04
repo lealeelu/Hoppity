@@ -1266,7 +1266,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 52511f67b8d575940ae9aaff86c7783b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 4.42
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 52511f67b8d575940ae9aaff86c7783b,
         type: 3}
@@ -1276,7 +1276,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 52511f67b8d575940ae9aaff86c7783b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 52511f67b8d575940ae9aaff86c7783b,
         type: 3}
@@ -1312,9 +1312,9 @@ MonoBehaviour:
     type: 3}
   material: {fileID: 2100000, guid: 831604440025da44c93da0755f0eefbf, type: 2}
   sun: {fileID: 1992763837}
-  sizeX: 30
+  sizeX: 9
   sizeZ: 16
-  noise: 0.911
+  noise: 1
   enableReflection: 0
   enableRefraction: 0
   reflection:
@@ -1541,7 +1541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.36027053, g: 0.8679245, b: 0.38132527, a: 1}
+  m_Color: {r: 0.5199359, g: 0.8679245, b: 0.53342384, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1911,8 +1911,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.949572, g: 1, b: 0.5801887, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.7103852, g: 1, b: 0.48584908, a: 1}
+  m_Intensity: 0.56
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1954,7 +1954,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}

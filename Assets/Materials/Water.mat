@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
   m_Shader: {fileID: 4800000, guid: bfbd133c547c89945a7459eb198a1666, type: 3}
-  m_ShaderKeywords: _SHADING_FLAT _WAVES_OFF _ZWRITE_ON
+  m_ShaderKeywords: _SHADING_VERTEXLIT _WAVES_OFF _ZWRITE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -70,13 +70,13 @@ Material:
     - _Direction: 180
     - _DstBlend: 0
     - _EdgeBlend: 0
-    - _Gloss: 0.935
+    - _Gloss: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Height: 1
     - _Height_: 1
-    - _Length: 2.44
+    - _Length: 0.53
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -87,25 +87,25 @@ Material:
     - _RSpeed: 1
     - _RSpeed_: 1
     - _Scale_: 1
-    - _Shading: 0
+    - _Shading: 1
     - _ShoreDistance: 1
     - _ShoreIntensity: 0
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
-    - _Specular: 1.99
+    - _Specular: 0.04
     - _SpecularHighlights: 1
     - _Speed: 1.69
     - _Speed_: 1.69
     - _SrcBlend: 1
-    - _Steepness: 0.03
-    - _Stretch: 10
+    - _Steepness: 0.878
+    - _Stretch: 11.95
     - _TexSize_: 64
     - _UVSec: 0
     - _Waves: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.4198113, g: 0.934877, b: 1, a: 1}
-    - _Direction_: {r: -1, g: -0.00000008742278, b: -0.0732, a: -0.0000000063993473}
+    - _Color: {r: 0.06069775, g: 0.16388668, b: 0.41509432, a: 1}
+    - _Direction_: {r: -1, g: -0.00000008742278, b: -0.46534, a: -0.000000040681314}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShoreColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.91743124, g: 1, b: 0, a: 1}
+    - _SpecColor: {r: 0, g: 0.3668096, b: 0.6981132, a: 1}
