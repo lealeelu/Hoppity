@@ -81,6 +81,6 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateScore(float newScore)
     {
-        scoreText.text = string.Format("D10", newScore);
+        scoreText.text = ((int)newScore).ToString("D10");
     }
 }

@@ -75,7 +75,7 @@ public class Map : MonoBehaviour
         //Debug.Log(spawnTimer);
         if (spawnTimer > spawnRate)
         {
-            Debug.Log("spawn " + spawnTimer);
+            //Debug.Log("spawn " + spawnTimer);
             spawnTimer = 0;
             StartCoroutine(SpawnLilly());
         }

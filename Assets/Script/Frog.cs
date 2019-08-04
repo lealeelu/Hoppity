@@ -10,11 +10,14 @@ public class Frog : MonoBehaviour
     //This will reflect the accuracy of the jump so we can reward the player
     //with a faster jump
     private float jumpingSpeedBase = 2;
+    private float distanceTraveled = 0;
 
     private void Update()
     {
         if (jumping)
         {
+            distanceTraveled += jumpingSpeedBase * Time.deltaTime * 10;
+            GameManager.Instance.UpdateScore(distanceTraveled);
             float jumpSpeed = jumpingSpeedBase *  jumpingLillyPad.speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, jumpingLillyPad.transform.position, jumpSpeed);
             if (Vector3.Distance(transform.position, jumpingLillyPad.transform.position) < 0.001f)
