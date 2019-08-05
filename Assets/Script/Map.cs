@@ -9,10 +9,18 @@ public class Map : MonoBehaviour
     [SerializeField]
     private int poolsize = 20;
     [SerializeField]
-    private float spawnRate = 2f;
+    private float startingSpawnRate = 2f;
+    [SerializeField]
+    private float currentSpawnRate;
+    [SerializeField]
+    private float difficultyMultiplier = 1.1f;
 
     [SerializeField]
-    private float mapSpeed = 1f;
+    private float currentMapSpeed = 1f;
+    [SerializeField]
+    private float startingMapSpeed;
+    [SerializeField]
+    private int starterPads = 7;
     [SerializeField]
     private Transform TopLeft;
     [SerializeField]
@@ -25,8 +33,9 @@ public class Map : MonoBehaviour
     public void GenerateMap()
     {
         // disable all current lillypads
-        // add 6 starter pads and activate
-        int starterPads = 6;
+        // add starter pads and activate
+        currentMapSpeed = startingMapSpeed;
+        currentSpawnRate = startingSpawnRate;
         for (int i = 0; i < lillyPadPool.Count; i++)
         {
             LillyPad pad = lillyPadPool[i];
@@ -37,7 +46,7 @@ public class Map : MonoBehaviour
                 pad.transform.position = new Vector3(GetRandX(), 0, newZ);
                 pad.gameObject.SetActive(true);
                 pad.enabled = false;
-                pad.speed = mapSpeed;
+                pad.speed = currentMapSpeed;
                 
                 if (i == 0)
                 {
@@ -56,9 +65,9 @@ public class Map : MonoBehaviour
         {
             if (lillyPadPool[i].gameObject.activeSelf) lillyPadPool[i].enabled = true;
         }
-
+        
         gameStart = Time.time;
-        spawnTimer = spawnRate;
+        spawnTimer = currentSpawnRate;
     }
 
     // Start is called before the first frame update
@@ -71,9 +80,13 @@ public class Map : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
+        
+        //up the difficulty
+        //currentMapSpeed += (Time.deltaTime * difficultyMultiplier);
+        //currentSpawnRate -= (Time.deltaTime * difficultyMultiplier);
+
         spawnTimer += Time.smoothDeltaTime;
-        //Debug.Log(spawnTimer);
-        if (spawnTimer > spawnRate)
+        if (spawnTimer > currentSpawnRate)
         {
             //Debug.Log("spawn " + spawnTimer);
             spawnTimer = 0;
@@ -85,7 +98,7 @@ public class Map : MonoBehaviour
     {
         LillyPad pad = GetInactiveLillyPad();
         pad.gameObject.transform.position = new Vector3(GetRandX(), 0, TopLeft.transform.position.z);
-        pad.speed = mapSpeed;
+        pad.speed = currentMapSpeed;
         pad.gameObject.SetActive(true);
         yield return null;
     }
