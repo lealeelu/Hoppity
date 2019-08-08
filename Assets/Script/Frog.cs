@@ -21,7 +21,7 @@ public class Frog : MonoBehaviour
         {
             distanceTraveled += jumpingSpeedBase * Time.deltaTime * 10;
             GameManager.Instance.UpdateScore(distanceTraveled);
-            //TODO make the animation timing match the jump
+            
             float jumpSpeed = jumpingSpeedBase *  jumpingLillyPad.speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, jumpingLillyPad.transform.position, jumpSpeed);
             if (Vector3.Distance(transform.position, jumpingLillyPad.transform.position) < 0.001f)
@@ -51,11 +51,16 @@ public class Frog : MonoBehaviour
             || jumping) return;
         jumping = true;
         jumpingLillyPad = lillyPad;
+        //calculate where the lilly will be in 0.625f
+        //face that direction
+        //set that as the jumptarget and ignore where the lilly is currently
         animator.SetTrigger("jump");
     }
 
     public void TeleportToLillyPad(LillyPad lillyPad)
     {
+        distanceTraveled = 0;
+        GameManager.Instance.UpdateScore(distanceTraveled);
         currentLillyPad = lillyPad;
     }
 }

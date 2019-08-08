@@ -17,6 +17,11 @@ public class GameManager : Singleton<GameManager>
     private GameObject gameOverPanel;
     [SerializeField]
     private TextMeshProUGUI scoreText;
+    [SerializeField]
+    private TextMeshProUGUI highScoreText;
+
+    private float highScore = 0;
+    private float currentScore = 0;
 
     public bool Playing
     {
@@ -31,6 +36,13 @@ public class GameManager : Singleton<GameManager>
     public void EndGame()
     {
         _playing = false;
+        //save score to file
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            highScoreText.text = scoreText.text;
+        }        
+
         gameOverPanel.SetActive(true);
     }
 
@@ -81,6 +93,7 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateScore(float newScore)
     {
+        currentScore = newScore;
         scoreText.text = ((int)newScore).ToString("D10");
     }
 }
