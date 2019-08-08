@@ -29,13 +29,17 @@ public class Map : MonoBehaviour
     private List<LillyPad> lillyPadPool;
     private float gameStart;
     private float spawnTimer;
-    
+    private int lillyCount = 0;
+
     public void GenerateMap()
     {
-        // disable all current lillypads
-        // add starter pads and activate
+        //Reset for new game
         currentMapSpeed = startingMapSpeed;
         currentSpawnRate = startingSpawnRate;
+        lillyCount = 0;
+
+        // disable all current lillypads
+        // add starter pads and activate
         for (int i = 0; i < lillyPadPool.Count; i++)
         {
             LillyPad pad = lillyPadPool[i];
@@ -47,7 +51,8 @@ public class Map : MonoBehaviour
                 pad.gameObject.SetActive(true);
                 pad.enabled = false;
                 pad.speed = currentMapSpeed;
-                
+                pad.lillyNumber = lillyCount++;
+
                 if (i == 0)
                 {
                     // put frog on first lillypad
@@ -100,6 +105,7 @@ public class Map : MonoBehaviour
         pad.gameObject.transform.position = new Vector3(GetRandX(), 0, TopLeft.transform.position.z);
         pad.speed = currentMapSpeed;
         pad.gameObject.SetActive(true);
+        pad.lillyNumber = lillyCount++;
         yield return null;
     }
 

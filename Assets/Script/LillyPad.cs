@@ -5,6 +5,7 @@ using UnityEngine;
 public class LillyPad : MonoBehaviour
 {
     public float speed;
+    public int lillyNumber;
 
     private void Update()
     {

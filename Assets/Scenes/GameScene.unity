@@ -2268,11 +2268,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LillyPad
       objectReference: {fileID: 0}
-    - target: {fileID: 3677190424246048342, guid: 692757d66da4bec408f9516da89c7625,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3677190424246048330, guid: 692757d66da4bec408f9516da89c7625,
         type: 3}
       propertyPath: m_LocalPosition.x

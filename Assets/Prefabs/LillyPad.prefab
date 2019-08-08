@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  lillyNumber: 0
 --- !u!1 &7071060969819512893
 GameObject:
   m_ObjectHideFlags: 0

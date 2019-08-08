@@ -42,7 +42,9 @@ public class Frog : MonoBehaviour
 
     public void JumpToLillyPad(LillyPad lillyPad, float speed)
     {
-        //add speed accuracy to jump
+        //MAYBE: add speed accuracy to jump
+        if (currentLillyPad.lillyNumber + 1 != lillyPad.lillyNumber
+            || jumping) return;
         jumping = true;
         jumpingLillyPad = lillyPad;
     }
