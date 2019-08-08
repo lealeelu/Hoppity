@@ -63,8 +63,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.26, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.56, z: -0.61}
+  m_Size: {x: 1.26, y: 1, z: 1.551139}
+  m_Center: {x: 0, y: 0.55999994, z: 0.35121197}
 --- !u!114 &5124605886157670742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7486885699809149349}
+  JSIncreasePerSec: 0.00015
 --- !u!1001 &6847215696015037649
 PrefabInstance:
   m_ObjectHideFlags: 0

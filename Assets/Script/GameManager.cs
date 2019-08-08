@@ -82,10 +82,12 @@ public class GameManager : Singleton<GameManager>
         hudPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         startPanel.SetActive(true);
+        frog.gameObject.SetActive(false);
     }
     
     public void SetBoard()
     {
+        frog.gameObject.SetActive(true);
         map.GenerateMap();
         startPanel.SetActive(false);
         hudPanel.SetActive(true);
