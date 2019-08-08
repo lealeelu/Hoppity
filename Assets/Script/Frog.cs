@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Frog : MonoBehaviour
 {
+    [SerializeField]
+    private Animator animator;
+
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
     private bool jumping = false;
@@ -18,6 +21,7 @@ public class Frog : MonoBehaviour
         {
             distanceTraveled += jumpingSpeedBase * Time.deltaTime * 10;
             GameManager.Instance.UpdateScore(distanceTraveled);
+            //TODO make the animation timing match the jump
             float jumpSpeed = jumpingSpeedBase *  jumpingLillyPad.speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, jumpingLillyPad.transform.position, jumpSpeed);
             if (Vector3.Distance(transform.position, jumpingLillyPad.transform.position) < 0.001f)
@@ -47,6 +51,7 @@ public class Frog : MonoBehaviour
             || jumping) return;
         jumping = true;
         jumpingLillyPad = lillyPad;
+        animator.SetTrigger("jump");
     }
 
     public void TeleportToLillyPad(LillyPad lillyPad)
