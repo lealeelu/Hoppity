@@ -92,11 +92,16 @@ public class Frog : MonoBehaviour
     //This is run at the start of every game, so this is practicly the startgame()
     public void TeleportToLillyPad(LillyPad lillyPad)
     {
+        //reset variables
         distanceTraveled = 0;
         currentAnimationLength = startingAnimationLength;
         animator.speed = 1;
         GameManager.Instance.UpdateScore(distanceTraveled);
+
         currentLillyPad = lillyPad;
         transform.position = currentLillyPad.gameObject.transform.position;
+
+        //face forward
+        transform.LookAt(transform.position + new Vector3(0, 0, 5));
     }
 }
