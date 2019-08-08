@@ -14,20 +14,27 @@ public class Frog : MonoBehaviour
     //with a faster jump
     private float jumpingSpeedBase = 2;
     private float distanceTraveled = 0;
-
+    private Vector3 targetJumpLocation;
+    private Vector3 oldLocation;
+    private float animationLength = 0.625f;
+    private float currentJumpTime = 0;
+    
     private void Update()
     {
         if (jumping)
         {
             distanceTraveled += jumpingSpeedBase * Time.deltaTime * 10;
             GameManager.Instance.UpdateScore(distanceTraveled);
-            
-            float jumpSpeed = jumpingSpeedBase *  jumpingLillyPad.speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, jumpingLillyPad.transform.position, jumpSpeed);
-            if (Vector3.Distance(transform.position, jumpingLillyPad.transform.position) < 0.001f)
+
+            if (currentJumpTime > animationLength)
             {
                 currentLillyPad = jumpingLillyPad;
                 jumping = false;
+            }
+            else
+            {
+                currentJumpTime += Time.deltaTime;
+                transform.position = Vector3.Lerp(oldLocation, targetJumpLocation, currentJumpTime / animationLength);
             }
         }
         if (!jumping && currentLillyPad != null)
@@ -49,10 +56,19 @@ public class Frog : MonoBehaviour
         //MAYBE: add speed accuracy to jump
         if (currentLillyPad.lillyNumber + 1 != lillyPad.lillyNumber
             || jumping) return;
+
+        //Setting up variables for new jump
         jumping = true;
         jumpingLillyPad = lillyPad;
+        currentJumpTime = 0;
+        oldLocation = transform.position;
+
         //calculate where the lilly will be in 0.625f
+        targetJumpLocation = lillyPad.gameObject.transform.position + new Vector3(0, 0, -lillyPad.speed * animationLength);
+
         //face that direction
+        transform.LookAt(targetJumpLocation);
+
         //set that as the jumptarget and ignore where the lilly is currently
         animator.SetTrigger("jump");
     }
