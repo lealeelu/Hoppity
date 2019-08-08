@@ -13,12 +13,15 @@ public class Map : MonoBehaviour
     [SerializeField]
     private float currentSpawnRate;
     [SerializeField]
-    private float difficultyMultiplier = 1.1f;
+    private float SRDecreasePerSec = 0.01f;
 
     [SerializeField]
     private float currentMapSpeed = 1f;
     [SerializeField]
     private float startingMapSpeed;
+    [SerializeField]
+    private float MSIncreasePerSec = 0.1f; 
+
     [SerializeField]
     private int starterPads = 7;
     [SerializeField]
@@ -29,6 +32,7 @@ public class Map : MonoBehaviour
     private List<LillyPad> lillyPadPool;
     private float gameStart;
     private float spawnTimer;
+    private float difficultyTimer;
     private int lillyCount = 0;
 
     public void GenerateMap()
@@ -73,6 +77,7 @@ public class Map : MonoBehaviour
         
         gameStart = Time.time;
         spawnTimer = currentSpawnRate;
+        difficultyTimer = 0;
     }
 
     // Start is called before the first frame update
@@ -85,15 +90,19 @@ public class Map : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
-        
-        //up the difficulty
-        //currentMapSpeed += (Time.deltaTime * difficultyMultiplier);
-        //currentSpawnRate -= (Time.deltaTime * difficultyMultiplier);
+
+        //up the difficulty every second
+        difficultyTimer += Time.smoothDeltaTime;
+        if (difficultyTimer > 1f)
+        {
+            currentMapSpeed += MSIncreasePerSec;
+            currentSpawnRate -= SRDecreasePerSec;
+            difficultyTimer = 0;
+        }
 
         spawnTimer += Time.smoothDeltaTime;
         if (spawnTimer > currentSpawnRate)
         {
-            //Debug.Log("spawn " + spawnTimer);
             spawnTimer = 0;
             StartCoroutine(SpawnLilly());
         }

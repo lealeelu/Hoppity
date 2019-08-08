@@ -496,11 +496,12 @@ MonoBehaviour:
   lillyPadPrefab: {fileID: 3677190424246048342, guid: 692757d66da4bec408f9516da89c7625,
     type: 3}
   poolsize: 20
-  startingSpawnRate: 2
-  currentSpawnRate: 2
-  difficultyMultiplier: 1
-  currentMapSpeed: 1
-  startingMapSpeed: 10
+  startingSpawnRate: 1.7
+  currentSpawnRate: 1.8
+  SRDecreasePerSec: 0.028
+  currentMapSpeed: 10
+  startingMapSpeed: 12
+  MSIncreasePerSec: 0.55
   starterPads: 7
   TopLeft: {fileID: 401508454}
   BottomRight: {fileID: 4492916}
