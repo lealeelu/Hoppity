@@ -20,7 +20,9 @@ public class Map : MonoBehaviour
     [SerializeField]
     private float startingMapSpeed;
     [SerializeField]
-    private float MSIncreasePerSec = 0.1f; 
+    private float MSIncreasePerSec = 0.1f;
+    [SerializeField]
+    private float MaxMapSpeed = 45f;
 
     [SerializeField]
     private int starterPads = 7;
@@ -91,14 +93,18 @@ public class Map : MonoBehaviour
     {
         if (!GameManager.Instance.Playing) return;
 
-        //up the difficulty every second
-        difficultyTimer += Time.smoothDeltaTime;
-        if (difficultyTimer > 1f)
+        if (currentMapSpeed < MaxMapSpeed)
         {
-            currentMapSpeed += MSIncreasePerSec;
-            currentSpawnRate -= SRDecreasePerSec;
-            difficultyTimer = 0;
+            //up the difficulty every second
+            difficultyTimer += Time.smoothDeltaTime;
+            if (difficultyTimer > 1f)
+            {
+                currentMapSpeed += MSIncreasePerSec;
+                currentSpawnRate -= SRDecreasePerSec;
+                difficultyTimer = 0;
+            }
         }
+        
 
         spawnTimer += Time.smoothDeltaTime;
         if (spawnTimer > currentSpawnRate)

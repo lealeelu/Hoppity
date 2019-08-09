@@ -19,6 +19,8 @@ public class GameManager : Singleton<GameManager>
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private TextMeshProUGUI highScoreText;
+    [SerializeField]
+    private TextMeshProUGUI versionText;
 
     private float highScore = 0;
     private float currentScore = 0;
@@ -50,6 +52,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         startPanel.SetActive(true);
+        versionText.text = string.Format("Version {0}", Application.version);
     }
 
     // Update is called once per frame
@@ -97,5 +100,15 @@ public class GameManager : Singleton<GameManager>
     {
         currentScore = newScore;
         scoreText.text = ((int)newScore).ToString("D10");
+    }
+
+    public void Settings()
+    {
+
+    }
+
+    public void Exit()
+    {
+        Application.Quit(); 
     }
 }

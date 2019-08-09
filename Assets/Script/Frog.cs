@@ -21,6 +21,7 @@ public class Frog : MonoBehaviour
     private Vector3 oldLocation;
     private float startingAnimationLength = 0.625f;
     private float currentAnimationLength = 0.625f;
+    private float minAnimationLength = 0.2f;
     private float currentJumpTime = 0;
     
     private void Update()
@@ -48,14 +49,17 @@ public class Frog : MonoBehaviour
             {
                 transform.position = currentLillyPad.gameObject.transform.position;
             }
-            //Every second we aren't jumping, increase the jump speed
-            jumpSpeedIncreaseCounter += Time.smoothDeltaTime;
-            if (jumpSpeedIncreaseCounter > 1f)
+            if (currentAnimationLength > minAnimationLength)
             {
-                currentAnimationLength -= JSIncreasePerSec;
-                animator.speed += JSIncreasePerSec;
-                Debug.Log(string.Format("Animator Speed: {0} Animation Length: {1}", animator.speed, currentAnimationLength));
-            }
+                //Every second we aren't jumping, increase the jump speed
+                jumpSpeedIncreaseCounter += Time.smoothDeltaTime;
+                if (jumpSpeedIncreaseCounter > 1f)
+                {
+                    currentAnimationLength -= JSIncreasePerSec;
+                    animator.speed += JSIncreasePerSec;
+                    //Debug.Log(string.Format("Animator Speed: {0} Animation Length: {1}", animator.speed, currentAnimationLength));
+                }
+            }            
         }        
     }
 
