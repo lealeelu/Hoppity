@@ -82,6 +82,14 @@ public class Map : MonoBehaviour
         difficultyTimer = 0;
     }
 
+    public void ClearMap()
+    {
+        for (int i = 0; i < lillyPadPool.Count; i++)
+        {
+            if (lillyPadPool[i].gameObject.activeSelf) lillyPadPool[i].gameObject.SetActive(false);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

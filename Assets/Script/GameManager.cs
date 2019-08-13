@@ -88,17 +88,24 @@ public class GameManager : Singleton<GameManager>
 
     public void TryAgain()
     {
+        SetBoard();
+    }
+    
+    public void GoBackToStart()
+    {
         hudPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        map.ClearMap();
         startPanel.SetActive(true);
         frog.gameObject.SetActive(false);
     }
-    
+
     public void SetBoard()
     {
         frog.gameObject.SetActive(true);
         map.GenerateMap();
         startPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
         hudPanel.SetActive(true);
     }
 
@@ -122,7 +129,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Credits(bool open)
     {
-        StoryPanel.SetActive(open);
+        CreditsPanel.SetActive(open);
         startPanel.SetActive(!open);
     }
 
