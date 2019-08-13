@@ -48,6 +48,8 @@ public class GameManager : Singleton<GameManager>
         if (currentScore > highScore)
         {
             highScore = currentScore;
+            PlayerPrefs.SetFloat("HighScore", highScore);
+            PlayerPrefs.Save();
             highScoreText.text = scoreText.text;
         }        
 
@@ -59,6 +61,11 @@ public class GameManager : Singleton<GameManager>
     {
         startPanel.SetActive(true);
         versionText.text = string.Format("Version {0}", Application.version);
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            highScore = PlayerPrefs.GetFloat("HighScore");
+            highScoreText.text = ((int)highScore).ToString("D10");
+        }
     }
 
     // Update is called once per frame
@@ -135,6 +142,9 @@ public class GameManager : Singleton<GameManager>
 
     public void Exit()
     {
-        Application.Quit(); 
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
