@@ -16,6 +16,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject gameOverPanel;
     [SerializeField]
+    private GameObject SettingsPanel;
+    [SerializeField]
+    private GameObject StoryPanel;
+    [SerializeField]
+    private GameObject CreditsPanel;
+    [SerializeField]
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private TextMeshProUGUI highScoreText;
@@ -102,9 +108,19 @@ public class GameManager : Singleton<GameManager>
         scoreText.text = ((int)newScore).ToString("D10");
     }
 
-    public void Settings()
+    public void Settings(bool open)
     {
+        SettingsPanel.SetActive(open);
+    }
 
+    public void Story(bool open)
+    {
+        StoryPanel.SetActive(open);
+    }
+
+    public void Credits(bool open)
+    {
+        StoryPanel.SetActive(open);
     }
 
     public void Exit()
