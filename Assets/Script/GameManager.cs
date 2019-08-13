@@ -111,16 +111,19 @@ public class GameManager : Singleton<GameManager>
     public void Settings(bool open)
     {
         SettingsPanel.SetActive(open);
+        startPanel.SetActive(!open);
     }
 
     public void Story(bool open)
     {
         StoryPanel.SetActive(open);
+        startPanel.SetActive(!open);
     }
 
     public void Credits(bool open)
     {
         StoryPanel.SetActive(open);
+        startPanel.SetActive(!open);
     }
 
     public void Exit()
