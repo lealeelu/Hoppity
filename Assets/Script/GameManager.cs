@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Advertisements;
+//using UnityEngine.Advertisements;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     private float highScore = 0;
     private float currentScore = 0;
-    private static string gameID = "b0f9d2d7-bdf9-4613-9841-6f7ac5c7d870";
+    private static string gameID = "3254786";
     private static string placementID = "gameOverBanner";
     
     public bool Playing
@@ -43,9 +43,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private bool _playing = false;
-
-    
+    private bool _playing = false;    
 
     // Start is called before the first frame update
     void Start()
@@ -57,8 +55,8 @@ public class GameManager : Singleton<GameManager>
             highScore = PlayerPrefs.GetFloat("HighScore");
             highScoreText.text = ((int)highScore).ToString("D10");
         }
-        Advertisement.Initialize(gameID, true);
-        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        //Advertisement.Initialize(gameID, true);
+        //Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
     }
 
     // Update is called once per frame
@@ -89,6 +87,7 @@ public class GameManager : Singleton<GameManager>
     public void EndGame()
     {
         _playing = false;
+        AudioManager.Instance.PlayFlowingWater(false);
         //save score to file
         if (currentScore > highScore)
         {
@@ -102,6 +101,7 @@ public class GameManager : Singleton<GameManager>
         //StartCoroutine(ShowBannerWhenReady());
     }
 
+    /*
     IEnumerator ShowBannerWhenReady()
     {
 #if UNITY_ANDROID || UNITY_IOS
@@ -111,7 +111,7 @@ public class GameManager : Singleton<GameManager>
         }
         Advertisement.Banner.Show(placementID);
 #endif
-    }
+    }*/
 
     public void TryAgain()
     {
@@ -131,9 +131,12 @@ public class GameManager : Singleton<GameManager>
     {
         frog.gameObject.SetActive(true);
         map.GenerateMap();
+
         startPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         hudPanel.SetActive(true);
+
+        AudioManager.Instance.PlayFlowingWater();
     }
 
     public void UpdateScore(float newScore)

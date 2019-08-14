@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7486885699809149349}
   JSIncreasePerSec: 0.00015
+  splashPlayAheadPercent: 0.6
 --- !u!1001 &6847215696015037649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86,11 +87,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5446785816928865012}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: c7df2929c8a569748a5ca405f1d1b7ac,
-        type: 3}
-      propertyPath: m_Name
-      value: justfrog
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c7df2929c8a569748a5ca405f1d1b7ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -144,6 +140,16 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c7df2929c8a569748a5ca405f1d1b7ac,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: c7df2929c8a569748a5ca405f1d1b7ac,
+        type: 3}
+      propertyPath: m_Name
+      value: justfrog
+      objectReference: {fileID: 0}
+    - target: {fileID: -8684251187902555887, guid: c7df2929c8a569748a5ca405f1d1b7ac,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

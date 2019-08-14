@@ -8,10 +8,13 @@ public class Frog : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private float JSIncreasePerSec = 0.01f;
+    [SerializeField]
+    private float splashPlayAheadPercent = 0.70f;
 
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
     private bool jumping = false;
+    private bool splashPlayed = false;
     //This will reflect the accuracy of the jump so we can reward the player
     //with a faster jump
     private float jumpingSpeedBase = 2;
@@ -36,10 +39,16 @@ public class Frog : MonoBehaviour
             {
                 currentLillyPad = jumpingLillyPad;
                 jumping = false;
+                splashPlayed = false;
             }
             else
             {
                 currentJumpTime += Time.deltaTime;
+                if (!splashPlayed && currentJumpTime/currentAnimationLength > splashPlayAheadPercent)
+                {
+                    AudioManager.Instance.PlaySplash();
+                    splashPlayed = true;
+                }
                 transform.position = Vector3.Lerp(oldLocation, targetJumpLocation, currentJumpTime / currentAnimationLength);
             }
         }
@@ -79,6 +88,7 @@ public class Frog : MonoBehaviour
 
         //Setting up variables for new jump
         jumping = true;
+        splashPlayed = false;
         jumpingLillyPad = lillyPad;
         currentJumpTime = 0;
         oldLocation = transform.position;
