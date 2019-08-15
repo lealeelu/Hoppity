@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class LillyPad : MonoBehaviour
 {
+    [SerializeField]
     public float speed;
+    [SerializeField]
     public int lillyNumber;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private Transform lillyTransform;
 
     private void Update()
     {
@@ -19,5 +25,15 @@ public class LillyPad : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void SplashAnimate()
+    {
+        animator.SetTrigger("Splash");
+    }
+
+    public Transform GetLillyTransform()
+    {
+        return lillyTransform;
     }
 }

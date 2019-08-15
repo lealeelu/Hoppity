@@ -92,7 +92,7 @@ Material:
     - _ShoreIntensity: 0
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
-    - _Specular: 0.04
+    - _Specular: 0.15
     - _SpecularHighlights: 1
     - _Speed: 1.69
     - _Speed_: 1.69
@@ -108,4 +108,4 @@ Material:
     - _Direction_: {r: -1, g: -0.00000008742278, b: -0.46534, a: -0.000000040681314}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShoreColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0, g: 0.3668096, b: 0.6981132, a: 1}
+    - _SpecColor: {r: 0, g: 0.43343234, b: 0.8207547, a: 1}

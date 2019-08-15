@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
-//using UnityEngine.Advertisements;
+using UnityEngine.Advertisements;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -55,8 +55,8 @@ public class GameManager : Singleton<GameManager>
             highScore = PlayerPrefs.GetFloat("HighScore");
             highScoreText.text = ((int)highScore).ToString("D10");
         }
-        //Advertisement.Initialize(gameID, true);
-        //Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        Advertisement.Initialize(gameID, true);
+        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
     }
 
     // Update is called once per frame
@@ -98,10 +98,10 @@ public class GameManager : Singleton<GameManager>
         }
 
         gameOverPanel.SetActive(true);
-        //StartCoroutine(ShowBannerWhenReady());
+        StartCoroutine(ShowBannerWhenReady());
     }
 
-    /*
+    
     IEnumerator ShowBannerWhenReady()
     {
 #if UNITY_ANDROID || UNITY_IOS
@@ -111,10 +111,11 @@ public class GameManager : Singleton<GameManager>
         }
         Advertisement.Banner.Show(placementID);
 #endif
-    }*/
+    }
 
     public void TryAgain()
     {
+        Advertisement.Banner.Hide();
         SetBoard();
     }
     
@@ -122,6 +123,8 @@ public class GameManager : Singleton<GameManager>
     {
         hudPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        Advertisement.Banner.Hide();
+
         map.ClearMap();
         startPanel.SetActive(true);
         frog.gameObject.SetActive(false);
@@ -131,10 +134,10 @@ public class GameManager : Singleton<GameManager>
     {
         frog.gameObject.SetActive(true);
         map.GenerateMap();
+        hudPanel.SetActive(true);
 
         startPanel.SetActive(false);
         gameOverPanel.SetActive(false);
-        hudPanel.SetActive(true);
 
         AudioManager.Instance.PlayFlowingWater();
     }

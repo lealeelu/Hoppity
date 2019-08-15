@@ -37,6 +37,7 @@ public class Frog : MonoBehaviour
 
             if (currentJumpTime > currentAnimationLength)
             {
+                jumpingLillyPad.SplashAnimate();
                 currentLillyPad = jumpingLillyPad;
                 jumping = false;
                 splashPlayed = false;
@@ -56,7 +57,7 @@ public class Frog : MonoBehaviour
         {
             if (currentLillyPad != null)
             {
-                transform.position = currentLillyPad.gameObject.transform.position;
+                transform.position = currentLillyPad.GetLillyTransform().position;
             }
             if (currentAnimationLength > minAnimationLength)
             {
@@ -94,7 +95,7 @@ public class Frog : MonoBehaviour
         oldLocation = transform.position;
 
         //calculate where the lilly will be in 0.625f
-        targetJumpLocation = lillyPad.gameObject.transform.position + new Vector3(0, 0, -lillyPad.speed * currentAnimationLength);
+        targetJumpLocation = lillyPad.GetLillyTransform().position + new Vector3(0, 0, -lillyPad.speed * currentAnimationLength);
 
         //face that direction
         transform.LookAt(targetJumpLocation);
@@ -113,7 +114,7 @@ public class Frog : MonoBehaviour
         GameManager.Instance.UpdateScore(distanceTraveled);
 
         currentLillyPad = lillyPad;
-        transform.position = currentLillyPad.gameObject.transform.position;
+        transform.position = currentLillyPad.GetLillyTransform().position;
 
         //face forward
         transform.LookAt(transform.position + new Vector3(0, 0, 5));
