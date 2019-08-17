@@ -69,6 +69,7 @@ public class Map : MonoBehaviour
             {
                 // put frog on first lillypad
                 LillyPad pad = SpawnLilly(startingPosition.position);
+                lillyCount++;
                 GameManager.Instance.frog.TeleportToLillyPad(pad);
             } else
             {

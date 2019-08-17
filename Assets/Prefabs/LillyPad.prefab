@@ -148,11 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611c915dd969cd54dbdcd8ee22f0b529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   speed: 0
   lillyNumber: 0
   animator: {fileID: 5505880708583434133}
   splashAnimation: {fileID: 620831023}
   lillyTransform: {fileID: 2109953369814127144}
+  flyAnimation: {fileID: 0}
 --- !u!1001 &6355348353025407282
 PrefabInstance:
   m_ObjectHideFlags: 0
