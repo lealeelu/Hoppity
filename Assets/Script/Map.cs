@@ -29,17 +29,25 @@ public class Map : MonoBehaviour
     private float MaxMapSpeed = 45f;
 
     [SerializeField]
-    private int starterPads = 7;
+    private int starterPads = 6;
     [SerializeField]
     private Transform TopLeft;
     [SerializeField]
     private Transform BottomRight;
+    [SerializeField]
+    private Transform startingPosition;
+
+    [SerializeField]
+    private Transform[] RowASpawns;
+    [SerializeField]
+    private Transform[] RowBSpawns;
 
     private List<LillyPad> lillyPadPool;
     private float gameStart;
     private float spawnTimer;
     private float difficultyTimer;
     private int lillyCount = 0;
+    private bool isRowA = true;
 
     public void GenerateMap()
     {
@@ -49,27 +57,25 @@ public class Map : MonoBehaviour
         lillyCount = 0;
 
         // disable all current lillypads
-        // add starter pads and activate
         for (int i = 0; i < lillyPadPool.Count; i++)
         {
-            LillyPad pad = lillyPadPool[i];
-            if (i < starterPads)
+            lillyPadPool[i].gameObject.SetActive(false);
+        }
+
+        // add starter rows
+        for (int i = 0; i < starterPads; i++)
+        {
+            if (i == 0)
+            {
+                // put frog on first lillypad
+                LillyPad pad = SpawnLilly(startingPosition.position);
+                GameManager.Instance.frog.TeleportToLillyPad(pad);
+            } else
             {
                 // set position
-                float newZ = (TopLeft.transform.position.z - BottomRight.transform.position.z)/starterPads*i;
-                pad.transform.position = new Vector3(GetRandX(), 0, newZ);
-                pad.gameObject.SetActive(true);
-                pad.enabled = false;
-                pad.speed = currentMapSpeed;
-                pad.lillyNumber = lillyCount++;
-
-                if (i == 0)
-                {
-                    // put frog on first lillypad
-                    GameManager.Instance.frog.TeleportToLillyPad(pad);
-                }
+                float newZ = (TopLeft.transform.position.z - BottomRight.transform.position.z) / starterPads * i;
+                SpawnLillyRow(newZ);
             }
-            else pad.gameObject.SetActive(false);
         }
     }
 
@@ -116,24 +122,39 @@ public class Map : MonoBehaviour
                 difficultyTimer = 0;
             }
         }
-        
 
         spawnTimer += Time.smoothDeltaTime;
         if (spawnTimer > currentSpawnRate)
         {
             spawnTimer = 0;
-            StartCoroutine(SpawnLilly());
+            SpawnLillyRow();
         }
     }
 
-    IEnumerator SpawnLilly()
+    void SpawnLillyRow(float startingZ = -1)
+    {
+        Transform[] transforms;
+
+        if (isRowA) transforms = RowASpawns;
+        else transforms = RowBSpawns;
+        foreach(Transform t in transforms)
+        {
+            if (startingZ != -1) SpawnLilly(new Vector3(t.position.x, t.position.y, startingZ));
+            else SpawnLilly(t.position);
+        }
+        
+        isRowA = !isRowA;
+        lillyCount++;
+    }
+
+    LillyPad SpawnLilly(Vector3 position)
     {
         LillyPad pad = GetInactiveLillyPad();
-        pad.gameObject.transform.position = new Vector3(GetRandX(), 0, TopLeft.transform.position.z);
+        pad.gameObject.transform.position = position;
         pad.speed = currentMapSpeed;
         pad.gameObject.SetActive(true);
-        pad.lillyNumber = lillyCount++;
-        yield return null;
+        pad.lillyNumber = lillyCount;
+        return pad;
     }
 
     void LoadLillyPadPool()

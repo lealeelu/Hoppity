@@ -5,12 +5,17 @@ using UnityEngine.Advertisements;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Settings")]
+    [SerializeField]
+    private AnimationCurve difficultyCurve;
+
+    [Header("References")]
     [SerializeField]
     public Frog frog;
     [SerializeField]
     private Map map;
 
-    // UI
+    [Header("UI")]
     [SerializeField]
     private GameObject startPanel;
     [SerializeField]

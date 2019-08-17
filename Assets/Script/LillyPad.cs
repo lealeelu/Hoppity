@@ -30,7 +30,7 @@ public class LillyPad : MonoBehaviour
     private void Start()
     {
         if (type == Type.Fly) flyAnimation.wrapMode = WrapMode.Loop;
-        splashAnimation.wrapMode = WrapMode.Once;    
+        splashAnimation.wrapMode = WrapMode.Once;
     }
 
     private void Update()
