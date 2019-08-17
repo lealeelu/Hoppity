@@ -5,7 +5,11 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     [SerializeField]
-    private GameObject lillyPadPrefab;
+    private GameObject normalLilyPadPrefab;
+    [SerializeField]
+    private GameObject flowerLilyPadPrefab;
+    [SerializeField]
+    private GameObject flyLilyPadPrefab;
     [SerializeField]
     private int poolsize = 20;
     [SerializeField]
@@ -155,7 +159,7 @@ public class Map : MonoBehaviour
 
     LillyPad GenerateLillyPad()
     {
-        GameObject pad = GameObject.Instantiate(lillyPadPrefab);
+        GameObject pad = GameObject.Instantiate(normalLilyPadPrefab);
         pad.SetActive(false);
         return pad.GetComponent<LillyPad>();
     }

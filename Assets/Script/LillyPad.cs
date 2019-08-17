@@ -5,13 +5,33 @@ using UnityEngine;
 public class LillyPad : MonoBehaviour
 {
     [SerializeField]
+    public Type type;
+    [SerializeField]
     public float speed;
     [SerializeField]
     public int lillyNumber;
     [SerializeField]
     private Animator animator;
     [SerializeField]
+    private Animation splashAnimation;
+    [SerializeField]
     private Transform lillyTransform;
+    [SerializeField]
+    private Animation flyAnimation;
+    
+    public enum Type
+    {
+        Normal,
+        Fly,
+        Flower,
+        Small
+    }
+
+    private void Start()
+    {
+        if (type == Type.Fly) flyAnimation.wrapMode = WrapMode.Loop;
+        splashAnimation.wrapMode = WrapMode.Once;    
+    }
 
     private void Update()
     {
@@ -29,6 +49,7 @@ public class LillyPad : MonoBehaviour
 
     public void SplashAnimate()
     {
+        splashAnimation.Play();
         animator.SetTrigger("Splash");
     }
 
