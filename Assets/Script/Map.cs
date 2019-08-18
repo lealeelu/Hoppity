@@ -151,13 +151,13 @@ public class Map : MonoBehaviour
         if (countPerRow > 1)
         {
             int secondSpawnPos = (firstSpawnPos + 1) % 3;
-            SpawnInRow(rowTransforms[secondSpawnPos], LillyPad.Type.Fly, startingZ);
+            SpawnInRow(rowTransforms[secondSpawnPos], LillyPad.GetRandomType(), startingZ);
         }
 
         if (countPerRow > 2)
         {
             int thirdSpawnPos = (firstSpawnPos + 2) % 3;
-            SpawnInRow(rowTransforms[thirdSpawnPos], LillyPad.Type.Flower, startingZ);
+            SpawnInRow(rowTransforms[thirdSpawnPos], LillyPad.GetRandomType(), startingZ);
         }
 
         isRowA = !isRowA;

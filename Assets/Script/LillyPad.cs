@@ -57,4 +57,9 @@ public class LillyPad : MonoBehaviour
     {
         return lillyTransform;
     }
+
+    public static Type GetRandomType()
+    {
+        return (Type)Random.Range(0, 3);
+    }
 }
