@@ -4,30 +4,17 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
     private GameObject normalLilyPadPrefab;
     [SerializeField]
     private GameObject flowerLilyPadPrefab;
     [SerializeField]
     private GameObject flyLilyPadPrefab;
+
+    [Header("Settings")]
     [SerializeField]
     private int poolsize = 20;
-    [SerializeField]
-    private float startingSpawnRate = 2f;
-    [SerializeField]
-    private float currentSpawnRate;
-    [SerializeField]
-    private float SRDecreasePerSec = 0.01f;
-
-    [SerializeField]
-    private float currentMapSpeed = 1f;
-    [SerializeField]
-    private float startingMapSpeed;
-    [SerializeField]
-    private float MSIncreasePerSec = 0.1f;
-    [SerializeField]
-    private float MaxMapSpeed = 45f;
-
     [SerializeField]
     private int starterPads = 6;
     [SerializeField]
@@ -42,72 +29,45 @@ public class Map : MonoBehaviour
     [SerializeField]
     private Transform[] RowBSpawns;
 
-    private List<LillyPad> lillyPadPool;
+    [Header("Difficulty - spawnrate")]
+    [SerializeField]
+    private float startingSpawnRate = 2f;
+    [SerializeField]
+    private float currentSpawnRate;
+    [SerializeField]
+    private float SRDecreasePerSec = 0.01f;
+
+    [Header("Difficulty - mapspeed")]
+    [SerializeField]
+    private float currentMapSpeed = 1f;
+    [SerializeField]
+    private float startingMapSpeed;
+    [SerializeField]
+    private float MSIncreasePerSec = 0.1f;
+    [SerializeField]
+    private float MaxMapSpeed = 45f;
+
+    private Pool lilyPool;
+    private Pool flyPool;
+    private Pool flowerPool;
     private float gameStart;
     private float spawnTimer;
     private float difficultyTimer;
     private int lillyCount = 0;
     private bool isRowA = true;
 
-    public void GenerateMap()
-    {
-        //Reset for new game
-        currentMapSpeed = startingMapSpeed;
-        currentSpawnRate = startingSpawnRate;
-        lillyCount = 0;
-
-        // disable all current lillypads
-        for (int i = 0; i < lillyPadPool.Count; i++)
-        {
-            lillyPadPool[i].gameObject.SetActive(false);
-        }
-
-        // add starter rows
-        for (int i = 0; i < starterPads; i++)
-        {
-            if (i == 0)
-            {
-                // put frog on first lillypad
-                LillyPad pad = SpawnLilly(startingPosition.position);
-                lillyCount++;
-                GameManager.Instance.frog.TeleportToLillyPad(pad);
-            } else
-            {
-                // set position
-                float newZ = (TopLeft.transform.position.z - BottomRight.transform.position.z) / starterPads * i;
-                SpawnLillyRow(newZ);
-            }
-        }
-    }
-
-    public void StartMap()
-    {
-        //enable the pads already spawned
-        for (int i = 0; i < lillyPadPool.Count; i++)
-        {
-            if (lillyPadPool[i].gameObject.activeSelf) lillyPadPool[i].enabled = true;
-        }
-        
-        gameStart = Time.time;
-        spawnTimer = currentSpawnRate;
-        difficultyTimer = 0;
-    }
-
-    public void ClearMap()
-    {
-        for (int i = 0; i < lillyPadPool.Count; i++)
-        {
-            if (lillyPadPool[i].gameObject.activeSelf) lillyPadPool[i].gameObject.SetActive(false);
-        }
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
-        LoadLillyPadPool();
+        lilyPool = new Pool(normalLilyPadPrefab);
+        lilyPool.LoadPool(20);
+
+        flyPool = new Pool(flyLilyPadPrefab);
+        flyPool.LoadPool(15);
+
+        flowerPool = new Pool(flowerLilyPadPrefab);
+        flowerPool.LoadPool(15);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
@@ -132,6 +92,49 @@ public class Map : MonoBehaviour
         }
     }
 
+    public void GenerateMap()
+    {
+        //Reset for new game
+        currentMapSpeed = startingMapSpeed;
+        currentSpawnRate = startingSpawnRate;
+        lillyCount = 0;
+
+        // disable all current lillypads and start over
+        ClearMap();
+
+        // add starter rows
+        for (int i = 0; i < starterPads; i++)
+        {
+            if (i == 0)
+            {
+                // put frog on first lillypad
+                LillyPad pad = SpawnLilly(startingPosition.position, LillyPad.Type.Normal);
+                lillyCount++;
+                GameManager.Instance.frog.TeleportToLillyPad(pad);
+            }
+            else
+            {
+                // set position
+                float newZ = (TopLeft.transform.position.z - BottomRight.transform.position.z) / starterPads * i;
+                SpawnLillyRow(newZ);
+            }
+        }
+    }
+
+    public void StartMap()
+    {
+        gameStart = Time.time;
+        spawnTimer = currentSpawnRate;
+        difficultyTimer = 0;
+    }
+
+    public void ClearMap()
+    {
+        lilyPool.DeactivatePoolObjects();
+        flyPool.DeactivatePoolObjects();
+        flowerPool.DeactivatePoolObjects();
+    }
+
     void SpawnLillyRow(float startingZ = -1)
     {
         Transform[] transforms;
@@ -140,54 +143,45 @@ public class Map : MonoBehaviour
         else transforms = RowBSpawns;
         foreach(Transform t in transforms)
         {
-            if (startingZ != -1) SpawnLilly(new Vector3(t.position.x, t.position.y, startingZ));
-            else SpawnLilly(t.position);
+            //Here is where I decide what kind of lillies to spawn
+            if (startingZ != -1) SpawnLilly(new Vector3(t.position.x, t.position.y, startingZ), LillyPad.Type.Normal);
+            else SpawnLilly(t.position, LillyPad.Type.Normal);
         }
         
         isRowA = !isRowA;
         lillyCount++;
     }
 
-    LillyPad SpawnLilly(Vector3 position)
+    LillyPad SpawnLilly(Vector3 position, LillyPad.Type type)
     {
-        LillyPad pad = GetInactiveLillyPad();
-        pad.gameObject.transform.position = position;
-        pad.speed = currentMapSpeed;
-        pad.gameObject.SetActive(true);
-        pad.lillyNumber = lillyCount;
-        return pad;
-    }
-
-    void LoadLillyPadPool()
-    {
-        lillyPadPool = new List<LillyPad>();
-        for (int i = 0; i < poolsize; i++)
+        GameObject o = null;
+        LillyPad pad;
+        switch (type)
         {
-            lillyPadPool.Add(GenerateLillyPad());
+            case LillyPad.Type.Normal:
+                o = lilyPool.GetInactiveObject();
+                break;
+            case LillyPad.Type.Fly:
+                o = flyPool.GetInactiveObject();
+                break;
+            case LillyPad.Type.Flower:
+                o = flowerPool.GetInactiveObject();
+                break;
+        }
+        if (o != null)
+        {
+            o.transform.position = position;
+            o.SetActive(true);
+            pad = o.GetComponent<LillyPad>();
+            pad.speed = currentMapSpeed;
+            pad.lillyNumber = lillyCount;
+            return pad;
+        }
+        else
+        {
+            Debug.LogError("Spawned Lily has no lily component");
+            return null;
         }
     }
-
-    LillyPad GetInactiveLillyPad()
-    {
-        for (int i = 0; i < lillyPadPool.Count; i++)
-        {
-            if (!lillyPadPool[i].isActiveAndEnabled) return lillyPadPool[i];
-        }
-        //if we've gotten here, they are all being used. EXPAND!!
-        LillyPad pad = GenerateLillyPad();
-        lillyPadPool.Add(pad);
-        return pad;
-    }
-
-    LillyPad GenerateLillyPad()
-    {
-        GameObject pad = GameObject.Instantiate(normalLilyPadPrefab);
-        pad.SetActive(false);
-        return pad.GetComponent<LillyPad>();
-    }
-
-    float GetRandX()
-    {
-        return Random.Range(TopLeft.position.x, BottomRight.position.x);
-    }
+        
 }

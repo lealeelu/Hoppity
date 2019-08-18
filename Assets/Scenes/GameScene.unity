@@ -1304,7 +1304,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultyCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.36080086
+      value: 0.8449872
+      inSlope: 0.8138083
+      outSlope: 0.8138083
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.75062674
+      outWeight: 0.087036185
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.037612814
+      outSlope: -0.037612814
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12540919
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
