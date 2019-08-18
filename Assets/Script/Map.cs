@@ -137,19 +137,38 @@ public class Map : MonoBehaviour
 
     void SpawnLillyRow(float startingZ = -1)
     {
-        Transform[] transforms;
+        Transform[] rowTransforms;
 
-        if (isRowA) transforms = RowASpawns;
-        else transforms = RowBSpawns;
-        foreach(Transform t in transforms)
+        if (isRowA) rowTransforms = RowASpawns;
+        else rowTransforms = RowBSpawns;
+
+        //Here is where I decide what kind of lillies to spawn
+        int countPerRow = Random.Range(1, 4);
+        //if there is only one lilly, spawn it as one normal lilly
+        int firstSpawnPos = Random.Range(0, 2);
+        SpawnInRow(rowTransforms[firstSpawnPos], LillyPad.Type.Normal, startingZ);
+
+        if (countPerRow > 1)
         {
-            //Here is where I decide what kind of lillies to spawn
-            if (startingZ != -1) SpawnLilly(new Vector3(t.position.x, t.position.y, startingZ), LillyPad.Type.Normal);
-            else SpawnLilly(t.position, LillyPad.Type.Normal);
+            int secondSpawnPos = (firstSpawnPos + 1) % 3;
+            SpawnInRow(rowTransforms[secondSpawnPos], LillyPad.Type.Fly, startingZ);
         }
-        
+
+        if (countPerRow > 2)
+        {
+            int thirdSpawnPos = (firstSpawnPos + 2) % 3;
+            SpawnInRow(rowTransforms[thirdSpawnPos], LillyPad.Type.Flower, startingZ);
+        }
+
         isRowA = !isRowA;
         lillyCount++;
+    }
+
+    void SpawnInRow(Transform t, LillyPad.Type type, float startingZ = -1)
+    {
+        Vector3 targetPos = t.position;
+        if (startingZ != -1) targetPos = new Vector3(t.position.x, t.position.y, startingZ);
+        SpawnLilly(targetPos, type);
     }
 
     LillyPad SpawnLilly(Vector3 position, LillyPad.Type type)

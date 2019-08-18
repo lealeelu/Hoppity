@@ -2053,13 +2053,6 @@ MonoBehaviour:
   flowerLilyPadPrefab: {fileID: 1093190055}
   flyLilyPadPrefab: {fileID: 993533426}
   poolsize: 20
-  startingSpawnRate: 1.8
-  currentSpawnRate: 1.8
-  SRDecreasePerSec: 0.022
-  currentMapSpeed: 10
-  startingMapSpeed: 12
-  MSIncreasePerSec: 0.55
-  MaxMapSpeed: 45
   starterPads: 6
   TopLeft: {fileID: 401508454}
   BottomRight: {fileID: 4492916}
@@ -2072,6 +2065,13 @@ MonoBehaviour:
   - {fileID: 725548465}
   - {fileID: 110214482}
   - {fileID: 89925182}
+  startingSpawnRate: 1.8
+  currentSpawnRate: 1.8
+  SRDecreasePerSec: 0.022
+  currentMapSpeed: 10
+  startingMapSpeed: 12
+  MSIncreasePerSec: 0.55
+  MaxMapSpeed: 45
 --- !u!4 &760680486
 Transform:
   m_ObjectHideFlags: 0
