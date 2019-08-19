@@ -143,18 +143,18 @@ public class Map : MonoBehaviour
         else rowTransforms = RowBSpawns;
 
         //Here is where I decide what kind of lillies to spawn
-        int countPerRow = Random.Range(1, 4);
+        //int countPerRow = Random.Range(1, 4);
         //if there is only one lilly, spawn it as one normal lilly
         int firstSpawnPos = Random.Range(0, 2);
         SpawnInRow(rowTransforms[firstSpawnPos], LillyPad.Type.Normal, startingZ);
 
-        if (countPerRow > 1)
+        if (Random.value > 0.5)
         {
             int secondSpawnPos = (firstSpawnPos + 1) % 3;
             SpawnInRow(rowTransforms[secondSpawnPos], LillyPad.GetRandomType(), startingZ);
         }
 
-        if (countPerRow > 2)
+        if (Random.value > 0.5)
         {
             int thirdSpawnPos = (firstSpawnPos + 2) % 3;
             SpawnInRow(rowTransforms[thirdSpawnPos], LillyPad.GetRandomType(), startingZ);

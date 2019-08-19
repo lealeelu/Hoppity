@@ -84,8 +84,19 @@ public class Frog : MonoBehaviour
     public void JumpToLillyPad(LillyPad lillyPad, float speed)
     {
         //MAYBE: add speed accuracy to jump
-        if (currentLillyPad.lillyNumber + 1 != lillyPad.lillyNumber
+        if (lillyPad.lillyNumber < currentLillyPad.lillyNumber
+            || lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1
             || jumping) return;
+
+        //check for type of lily
+        if (lillyPad.type == LillyPad.Type.Fly)
+        {
+
+        }
+        else if (lillyPad.type == LillyPad.Type.Flower)
+        {
+
+        }
 
         //Setting up variables for new jump
         jumping = true;
