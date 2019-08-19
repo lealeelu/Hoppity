@@ -14,7 +14,9 @@ public class Frog : MonoBehaviour
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
     private bool jumping = false;
+    public bool canJump = true;
     private bool splashPlayed = false;
+    private bool slipAtEnd = false;
     //This will reflect the accuracy of the jump so we can reward the player
     //with a faster jump
     private float jumpingSpeedBase = 2;
@@ -35,9 +37,17 @@ public class Frog : MonoBehaviour
             distanceTraveled += jumpingSpeedBase * Time.smoothDeltaTime * 10;
             GameManager.Instance.UpdateScore(distanceTraveled);
 
+            //Something with this timing logic is off.
             if (currentJumpTime > currentAnimationLength)
             {
                 jumpingLillyPad.SplashAnimate();
+                if (slipAtEnd)
+                {
+                    animator.SetTrigger("Slip");
+                    canJump = false;
+                    StartCoroutine(WaitForSlipEnd());
+                }
+
                 currentLillyPad = jumpingLillyPad;
                 jumping = false;
                 splashPlayed = false;
@@ -73,6 +83,14 @@ public class Frog : MonoBehaviour
         }        
     }
 
+    IEnumerator WaitForSlipEnd()
+    {
+        //wait for the length of the slip animation
+        yield return new WaitForSeconds(0.833f);
+        canJump = true;
+        slipAtEnd = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "DeadZone")
@@ -86,7 +104,8 @@ public class Frog : MonoBehaviour
         //MAYBE: add speed accuracy to jump
         if (lillyPad.lillyNumber < currentLillyPad.lillyNumber
             || lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1
-            || jumping) return;
+            || jumping
+            || !canJump) return;
 
         //check for type of lily
         if (lillyPad.type == LillyPad.Type.Fly)
@@ -95,7 +114,7 @@ public class Frog : MonoBehaviour
         }
         else if (lillyPad.type == LillyPad.Type.Flower)
         {
-
+            slipAtEnd = true;
         }
 
         //Setting up variables for new jump
