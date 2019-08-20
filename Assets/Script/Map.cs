@@ -14,8 +14,6 @@ public class Map : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
-    private int poolsize = 20;
-    [SerializeField]
     private int starterPads = 6;
     [SerializeField]
     private Transform TopLeft;
@@ -31,28 +29,24 @@ public class Map : MonoBehaviour
 
     [Header("Difficulty - spawnrate")]
     [SerializeField]
-    private float startingSpawnRate = 2f;
-    [SerializeField]
-    private float currentSpawnRate;
-    [SerializeField]
-    private float SRDecreasePerSec = 0.01f;
+    private float maxSpawnRate = 2f;
 
     [Header("Difficulty - mapspeed")]
     [SerializeField]
     private float currentMapSpeed = 1f;
     [SerializeField]
-    private float startingMapSpeed;
+    private float maxMapSpeed = 10f;
     [SerializeField]
-    private float MSIncreasePerSec = 0.1f;
-    [SerializeField]
-    private float MaxMapSpeed = 45f;
+    private float MaxGameTime = 30f;
 
+        
     private Pool lilyPool;
     private Pool flyPool;
     private Pool flowerPool;
     private float gameStart;
     private float spawnTimer;
     private float difficultyTimer;
+    private float gameTimer;
     private int lillyCount = 0;
     private bool isRowA = true;
 
@@ -71,32 +65,22 @@ public class Map : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
-
-        if (currentMapSpeed < MaxMapSpeed)
-        {
-            //up the difficulty every second
-            difficultyTimer += Time.smoothDeltaTime;
-            if (difficultyTimer > 1f)
-            {
-                currentMapSpeed += MSIncreasePerSec;
-                currentSpawnRate -= SRDecreasePerSec;
-                difficultyTimer = 0;
-            }
-        }
-
-        spawnTimer += Time.smoothDeltaTime;
-        if (spawnTimer > currentSpawnRate)
+        gameTimer += Time.deltaTime;
+        float currentDifficulty = GameManager.Instance.difficultyCurve.Evaluate(gameTimer / MaxGameTime);
+        
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer > maxSpawnRate * (1 - currentDifficulty))
         {
             spawnTimer = 0;
             SpawnLillyRow();
         }
+        
+        currentMapSpeed = (maxMapSpeed * currentDifficulty);
     }
 
     public void GenerateMap()
     {
         //Reset for new game
-        currentMapSpeed = startingMapSpeed;
-        currentSpawnRate = startingSpawnRate;
         lillyCount = 0;
 
         // disable all current lillypads and start over
@@ -124,8 +108,9 @@ public class Map : MonoBehaviour
     public void StartMap()
     {
         gameStart = Time.time;
-        spawnTimer = currentSpawnRate;
+        spawnTimer = maxSpawnRate;
         difficultyTimer = 0;
+        gameTimer = 0;
     }
 
     public void ClearMap()

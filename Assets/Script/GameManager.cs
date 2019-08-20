@@ -7,7 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("Settings")]
     [SerializeField]
-    private AnimationCurve difficultyCurve;
+    public AnimationCurve difficultyCurve;
 
     [Header("References")]
     [SerializeField]

@@ -1155,7 +1155,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 31
+  m_AdditionalShaderChannelsFlag: 7
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1382,30 +1382,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
+      value: 0.19812012
+      inSlope: 0.69571424
+      outSlope: 0.5021603
+      tangentMode: 1
+      weightedMode: 2
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.36080086
-      value: 0.8449872
-      inSlope: 0.8138083
-      outSlope: 0.8138083
-      tangentMode: 0
-      weightedMode: 1
-      inWeight: 0.75062674
-      outWeight: 0.087036185
+      outWeight: 0.14612868
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0.037612814
-      outSlope: -0.037612814
+      inSlope: 0.04672867
+      outSlope: 0.04672867
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.12540919
+      inWeight: 0.32715374
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2128,7 +2119,6 @@ MonoBehaviour:
   normalLilyPadPrefab: {fileID: 553949177}
   flowerLilyPadPrefab: {fileID: 1093190055}
   flyLilyPadPrefab: {fileID: 993533426}
-  poolsize: 20
   starterPads: 6
   TopLeft: {fileID: 401508454}
   BottomRight: {fileID: 4492916}
@@ -2141,13 +2131,10 @@ MonoBehaviour:
   - {fileID: 725548465}
   - {fileID: 110214482}
   - {fileID: 89925182}
-  startingSpawnRate: 1.8
-  currentSpawnRate: 1.8
-  SRDecreasePerSec: 0.022
+  maxSpawnRate: 2
   currentMapSpeed: 10
-  startingMapSpeed: 12
-  MSIncreasePerSec: 0.55
-  MaxMapSpeed: 45
+  maxMapSpeed: 45
+  MaxGameTime: 240
 --- !u!4 &760680486
 Transform:
   m_ObjectHideFlags: 0

@@ -185,11 +185,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5877051941519853147}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 2c2a8716a97bac144ade3046ce37db21,
-        type: 3}
-      propertyPath: m_Name
-      value: firefly
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2c2a8716a97bac144ade3046ce37db21,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -259,6 +254,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 114.56145
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2c2a8716a97bac144ade3046ce37db21,
+        type: 3}
+      propertyPath: m_Name
+      value: firefly
       objectReference: {fileID: 0}
     - target: {fileID: 7561110372842451503, guid: 2c2a8716a97bac144ade3046ce37db21,
         type: 3}
@@ -391,6 +391,21 @@ PrefabInstance:
       propertyPath: flyAnimation
       value: 
       objectReference: {fileID: 9108588724230122151}
+    - target: {fileID: 7158248018023297683, guid: 692757d66da4bec408f9516da89c7625,
+        type: 3}
+      propertyPath: fly
+      value: 
+      objectReference: {fileID: 4885142491942194520}
+    - target: {fileID: 3126598052230563483, guid: 692757d66da4bec408f9516da89c7625,
+        type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126598052230563483, guid: 692757d66da4bec408f9516da89c7625,
+        type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: ef61c4127d7914f4eb3464d6afd4640d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 692757d66da4bec408f9516da89c7625, type: 3}
 --- !u!4 &5877051941519853147 stripped

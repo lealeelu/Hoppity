@@ -18,6 +18,8 @@ public class LillyPad : MonoBehaviour
     private Transform lillyTransform;
     [SerializeField]
     private Animation flyAnimation;
+    [SerializeField]
+    private GameObject fly;
     
     public enum Type
     {
@@ -52,6 +54,7 @@ public class LillyPad : MonoBehaviour
     {
         splashAnimation.Play();
         bounceAnimation.Play();
+        if (type == Type.Fly) fly.SetActive(false);
     }
 
     public Transform GetLillyTransform()
