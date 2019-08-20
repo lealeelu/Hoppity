@@ -51,7 +51,7 @@ public class FillBar : MonoBehaviour
 
     public bool ReachedMax()
     {
-        return _value > Max;
+        return _value >= Max;
     }
 
     public void Increment(int byAmount = 1)

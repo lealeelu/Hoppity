@@ -7,9 +7,7 @@ public class Frog : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private float JSIncreasePerSec = 0.01f;
-    [SerializeField]
-    private float splashPlayAheadPercent = 0.70f;
+    private float splashPlayAheadPercent = 0.80f;
 
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
@@ -20,13 +18,11 @@ public class Frog : MonoBehaviour
     //This will reflect the accuracy of the jump so we can reward the player
     //with a faster jump
     private float jumpingSpeedBase = 2;
-    private float jumpSpeedIncreaseCounter;
     private float distanceTraveled = 0;
     private Vector3 targetJumpLocation;
     private Vector3 oldLocation;
     private float startingAnimationLength = 0.625f;
     private float currentAnimationLength = 0.625f;
-    private float minAnimationLength = 0.2f;
     private float currentJumpTime = 0;
     
     private void Update()
@@ -52,35 +48,27 @@ public class Frog : MonoBehaviour
                 jumping = false;
                 splashPlayed = false;
             }
-            else
+            currentJumpTime += Time.deltaTime;
+            if (!splashPlayed && currentJumpTime/currentAnimationLength > splashPlayAheadPercent)
             {
-                currentJumpTime += Time.deltaTime;
-                if (!splashPlayed && currentJumpTime/currentAnimationLength > splashPlayAheadPercent)
-                {
-                    AudioManager.Instance.PlaySplash();
-                    splashPlayed = true;
-                }
-                transform.position = Vector3.Lerp(oldLocation, targetJumpLocation, currentJumpTime / currentAnimationLength);
+                AudioManager.Instance.PlaySplash();
+                splashPlayed = true;
             }
+            transform.position = Vector3.Lerp(oldLocation, targetJumpLocation, currentJumpTime / currentAnimationLength);
         }
         else
         {
             if (currentLillyPad != null)
             {
                 transform.position = currentLillyPad.GetLillyTransform().position;
-            }
-            if (currentAnimationLength > minAnimationLength)
-            {
-                //Every second we aren't jumping, increase the jump speed
-                jumpSpeedIncreaseCounter += Time.smoothDeltaTime;
-                if (jumpSpeedIncreaseCounter > 1f)
-                {
-                    currentAnimationLength -= JSIncreasePerSec;
-                    animator.speed += JSIncreasePerSec;
-                    //Debug.Log(string.Format("Animator Speed: {0} Animation Length: {1}", animator.speed, currentAnimationLength));
-                }
             }            
-        }        
+        }
+
+        //Increase Jump Speed
+        currentAnimationLength = startingAnimationLength * (1 - GameManager.Instance.CurrentDifficulty);
+        animator.speed = 1 + GameManager.Instance.CurrentDifficulty;
+        Debug.Log(string.Format("{0} {1}", currentAnimationLength, animator.speed));
+
     }
 
     IEnumerator WaitForSlipEnd()
@@ -107,11 +95,6 @@ public class Frog : MonoBehaviour
             || jumping
             || !canJump) return;
 
-        //check for type of lily
-        if (lillyPad.type == LillyPad.Type.Fly)
-        {
-
-        }
         else if (lillyPad.type == LillyPad.Type.Flower)
         {
             slipAtEnd = true;

@@ -36,11 +36,23 @@ public class GameManager : Singleton<GameManager>
     private TextMeshProUGUI versionText;
     [SerializeField]
     private FillBar flyCountBar;
+    [SerializeField]
+    private float MaxGameTime = 240f;
 
     private float highScore = 0;
     private float currentScore = 0;
     private static string gameID = "3254786";
     private static string placementID = "gameOverBanner";
+    private float gameTimer;
+    private float _currentDifficulty;
+
+    public float CurrentDifficulty
+    {
+        get
+        {
+            return _currentDifficulty;
+        }
+    }
     
     public bool Playing
     {
@@ -69,6 +81,13 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
+        if (_playing)
+        {
+            //update the difficulty based on a curve.
+            gameTimer += Time.deltaTime;
+            _currentDifficulty = difficultyCurve.Evaluate(gameTimer / MaxGameTime);
+        }
+
         if (!startPanel.activeSelf && !gameOverPanel.activeSelf && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -86,6 +105,7 @@ public class GameManager : Singleton<GameManager>
                         if (flyCountBar.ReachedMax())
                         {
                             frog.ActivateSuperMode();
+                            flyCountBar.SetValue(0);
                         }
                     }
                     if (!_playing) StartGame();
@@ -98,7 +118,7 @@ public class GameManager : Singleton<GameManager>
     {
         _playing = true;
         map.StartMap();
-        flyCountBar.SetValue(0);
+        gameTimer = 0;
     }
 
     public void EndGame()
@@ -151,6 +171,7 @@ public class GameManager : Singleton<GameManager>
     {
         frog.gameObject.SetActive(true);
         map.GenerateMap();
+        flyCountBar.SetValue(0);
         hudPanel.SetActive(true);
 
         startPanel.SetActive(false);

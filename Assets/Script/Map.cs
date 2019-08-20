@@ -36,10 +36,7 @@ public class Map : MonoBehaviour
     private float currentMapSpeed = 1f;
     [SerializeField]
     private float maxMapSpeed = 10f;
-    [SerializeField]
-    private float MaxGameTime = 30f;
-
-        
+            
     private Pool lilyPool;
     private Pool flyPool;
     private Pool flowerPool;
@@ -65,17 +62,15 @@ public class Map : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
-        gameTimer += Time.deltaTime;
-        float currentDifficulty = GameManager.Instance.difficultyCurve.Evaluate(gameTimer / MaxGameTime);
-        
+         
         spawnTimer += Time.deltaTime;
-        if (spawnTimer > maxSpawnRate * (1 - currentDifficulty))
+        if (spawnTimer > maxSpawnRate * (1 - GameManager.Instance.CurrentDifficulty))
         {
             spawnTimer = 0;
             SpawnLillyRow();
         }
         
-        currentMapSpeed = (maxMapSpeed * currentDifficulty);
+        currentMapSpeed = (maxMapSpeed * GameManager.Instance.CurrentDifficulty);
     }
 
     public void GenerateMap()
