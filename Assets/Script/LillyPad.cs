@@ -11,7 +11,7 @@ public class LillyPad : MonoBehaviour
     [SerializeField]
     public int lillyNumber;
     [SerializeField]
-    private Animator animator;
+    private Animation bounceAnimation;
     [SerializeField]
     private Animation splashAnimation;
     [SerializeField]
@@ -31,6 +31,7 @@ public class LillyPad : MonoBehaviour
     {
         if (type == Type.Fly) flyAnimation.wrapMode = WrapMode.Loop;
         splashAnimation.wrapMode = WrapMode.Once;
+        bounceAnimation.wrapMode = WrapMode.Once;
     }
 
     private void Update()
@@ -50,7 +51,7 @@ public class LillyPad : MonoBehaviour
     public void SplashAnimate()
     {
         splashAnimation.Play();
-        animator.SetTrigger("Splash");
+        bounceAnimation.Play();
     }
 
     public Transform GetLillyTransform()

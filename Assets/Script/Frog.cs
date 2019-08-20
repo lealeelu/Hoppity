@@ -149,4 +149,9 @@ public class Frog : MonoBehaviour
         //face forward
         transform.LookAt(transform.position + new Vector3(0, 0, 5));
     }
+
+    public void ActivateSuperMode()
+    {
+
+    }
 }

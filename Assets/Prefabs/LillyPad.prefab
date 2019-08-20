@@ -70,25 +70,21 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!95 &5505880708583434133
-Animator:
-  serializedVersion: 3
+--- !u!111 &3126598052230563483
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3103919889685815355}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5e4aa927adcfd0146996b9dacf1a24cc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: ef61c4127d7914f4eb3464d6afd4640d, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3677190424246048342
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3677190424246048330
 Transform:
   m_ObjectHideFlags: 0
@@ -151,7 +147,7 @@ MonoBehaviour:
   type: 0
   speed: 0
   lillyNumber: 0
-  animator: {fileID: 5505880708583434133}
+  bounceAnimation: {fileID: 3126598052230563483}
   splashAnimation: {fileID: 620831023}
   lillyTransform: {fileID: 2109953369814127144}
   flyAnimation: {fileID: 0}
@@ -258,11 +254,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3677190424246048330}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 285157a0ad0d8fd42915a94bd622c70b,
-        type: 3}
-      propertyPath: m_Name
-      value: splash
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 285157a0ad0d8fd42915a94bd622c70b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -332,6 +323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 48.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 285157a0ad0d8fd42915a94bd622c70b,
+        type: 3}
+      propertyPath: m_Name
+      value: splash
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -1504981713932161579, guid: 285157a0ad0d8fd42915a94bd622c70b, type: 3}

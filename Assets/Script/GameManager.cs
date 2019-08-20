@@ -34,6 +34,8 @@ public class GameManager : Singleton<GameManager>
     private TextMeshProUGUI highScoreText;
     [SerializeField]
     private TextMeshProUGUI versionText;
+    [SerializeField]
+    private FillBar flyCountBar;
 
     private float highScore = 0;
     private float currentScore = 0;
@@ -76,7 +78,16 @@ public class GameManager : Singleton<GameManager>
                 if (hit.transform.tag == "LillyPad")
                 {
                     //jump to that lillypad
-                    frog.JumpToLillyPad(hit.transform.gameObject.GetComponent<LillyPad>(), 2);
+                    LillyPad lily = hit.transform.gameObject.GetComponent<LillyPad>();
+                    frog.JumpToLillyPad(lily, 2);
+                    if (lily.type == LillyPad.Type.Fly)
+                    {
+                        flyCountBar.Increment();
+                        if (flyCountBar.ReachedMax())
+                        {
+                            frog.ActivateSuperMode();
+                        }
+                    }
                     if (!_playing) StartGame();
                 }
             }
@@ -87,6 +98,7 @@ public class GameManager : Singleton<GameManager>
     {
         _playing = true;
         map.StartMap();
+        flyCountBar.SetValue(0);
     }
 
     public void EndGame()
