@@ -54,7 +54,7 @@ public class LillyPad : MonoBehaviour
     {
         splashAnimation.Play();
         bounceAnimation.Play();
-        if (type == Type.Fly) fly.SetActive(false);
+        DeactivateFly();
     }
 
     public Transform GetLillyTransform()
@@ -65,5 +65,10 @@ public class LillyPad : MonoBehaviour
     public static Type GetRandomType()
     {
         return (Type)Random.Range(0, 4);
+    }
+
+    public void DeactivateFly()
+    {
+        if (type == Type.Fly) fly.SetActive(false);
     }
 }

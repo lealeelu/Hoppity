@@ -7,7 +7,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521662490584403233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -80,7 +80,8 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: ef61c4127d7914f4eb3464d6afd4640d, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: ef61c4127d7914f4eb3464d6afd4640d, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -151,6 +152,7 @@ MonoBehaviour:
   splashAnimation: {fileID: 620831023}
   lillyTransform: {fileID: 2109953369814127144}
   flyAnimation: {fileID: 0}
+  fly: {fileID: 0}
 --- !u!1001 &6355348353025407282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -329,8 +331,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: splash
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -1504981713932161579, guid: 285157a0ad0d8fd42915a94bd622c70b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 285157a0ad0d8fd42915a94bd622c70b, type: 3}
 --- !u!1 &521662490584403233 stripped
 GameObject:

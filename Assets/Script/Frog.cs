@@ -14,7 +14,6 @@ public class Frog : MonoBehaviour
     private bool jumping = false;
     public bool canJump = true;
     private bool splashPlayed = false;
-    private bool slipAtEnd = false;
     //This will reflect the accuracy of the jump so we can reward the player
     //with a faster jump
     private float jumpingSpeedBase = 2;
@@ -37,11 +36,20 @@ public class Frog : MonoBehaviour
             if (currentJumpTime > currentAnimationLength)
             {
                 jumpingLillyPad.SplashAnimate();
-                if (slipAtEnd)
+                if (jumpingLillyPad.type == LillyPad.Type.Flower)
                 {
                     animator.SetTrigger("Slip");
                     canJump = false;
                     StartCoroutine(WaitForSlipEnd());
+                }
+                if (jumpingLillyPad.type == LillyPad.Type.Fly)
+                {
+                    GameManager.Instance.flyCountBar.Increment();
+                    if (GameManager.Instance.flyCountBar.ReachedMax())
+                    {
+                        ActivateSuperMode();
+                        GameManager.Instance.flyCountBar.SetValue(0);
+                    }
                 }
 
                 currentLillyPad = jumpingLillyPad;
@@ -76,7 +84,6 @@ public class Frog : MonoBehaviour
         //wait for the length of the slip animation
         yield return new WaitForSeconds(0.833f);
         canJump = true;
-        slipAtEnd = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -94,11 +101,6 @@ public class Frog : MonoBehaviour
             || lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1
             || jumping
             || !canJump) return;
-
-        else if (lillyPad.type == LillyPad.Type.Flower)
-        {
-            slipAtEnd = true;
-        }
 
         //Setting up variables for new jump
         jumping = true;

@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private TextMeshProUGUI versionText;
     [SerializeField]
-    private FillBar flyCountBar;
+    public FillBar flyCountBar;
     [SerializeField]
     private float MaxGameTime = 240f;
 
@@ -99,15 +99,6 @@ public class GameManager : Singleton<GameManager>
                     //jump to that lillypad
                     LillyPad lily = hit.transform.gameObject.GetComponent<LillyPad>();
                     frog.JumpToLillyPad(lily, 2);
-                    if (lily.type == LillyPad.Type.Fly)
-                    {
-                        flyCountBar.Increment();
-                        if (flyCountBar.ReachedMax())
-                        {
-                            frog.ActivateSuperMode();
-                            flyCountBar.SetValue(0);
-                        }
-                    }
                     if (!_playing) StartGame();
                 }
             }
