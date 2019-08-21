@@ -181,8 +181,8 @@ public class Map : MonoBehaviour
             o.transform.position = position;
             o.SetActive(true);
             pad = o.GetComponent<LillyPad>();
-            pad.speed = currentMapSpeed;
-            pad.lillyNumber = lillyCount;
+            pad.SetLilly(currentMapSpeed, lillyCount);
+            
             return pad;
         }
         else

@@ -29,13 +29,6 @@ public class LillyPad : MonoBehaviour
         Sink
     }
 
-    private void Start()
-    {
-        if (type == Type.Fly) flyAnimation.wrapMode = WrapMode.Loop;
-        splashAnimation.wrapMode = WrapMode.Once;
-        bounceAnimation.wrapMode = WrapMode.Once;
-    }
-
     private void Update()
     {
         if (GameManager.Instance.Playing)
@@ -50,11 +43,19 @@ public class LillyPad : MonoBehaviour
         }
     }
 
+    public void SetLilly(float speed, int lilyNumber)
+    {
+        this.speed = speed;
+        this.lillyNumber = lilyNumber;
+        if (type == Type.Fly) fly.SetActive(true);
+        if (type == Type.Sink) bounceAnimation.Play("LillyIdle");
+    }
+
     public void SplashAnimate()
     {
         splashAnimation.Play();
         bounceAnimation.Play();
-        DeactivateFly();
+        if (type == Type.Fly) fly.SetActive(false);
     }
 
     public Transform GetLillyTransform()
@@ -67,8 +68,4 @@ public class LillyPad : MonoBehaviour
         return (Type)Random.Range(0, 4);
     }
 
-    public void DeactivateFly()
-    {
-        if (type == Type.Fly) fly.SetActive(false);
-    }
 }

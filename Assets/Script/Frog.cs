@@ -22,6 +22,7 @@ public class Frog : MonoBehaviour
     private Vector3 oldLocation;
     private float startingAnimationLength = 0.625f;
     private float currentAnimationLength = 0.625f;
+    private float sinkAnimationLength = 1.167f;
     private float currentJumpTime = 0;
     
     private void Update()
