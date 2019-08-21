@@ -11,6 +11,8 @@ public class Map : MonoBehaviour
     private GameObject flowerLilyPadPrefab;
     [SerializeField]
     private GameObject flyLilyPadPrefab;
+    [SerializeField]
+    private GameObject sinkLilyPadPrefab;
 
     [Header("Settings")]
     [SerializeField]
@@ -40,6 +42,7 @@ public class Map : MonoBehaviour
     private Pool lilyPool;
     private Pool flyPool;
     private Pool flowerPool;
+    private Pool sinkPool;
     private float gameStart;
     private float spawnTimer;
     private float difficultyTimer;
@@ -57,20 +60,21 @@ public class Map : MonoBehaviour
 
         flowerPool = new Pool(flowerLilyPadPrefab);
         flowerPool.LoadPool(15);
+
+        sinkPool = new Pool(sinkLilyPadPrefab);
+        sinkPool.LoadPool(15);
     }
 
     void Update()
     {
         if (!GameManager.Instance.Playing) return;
-         
+        currentMapSpeed = (maxMapSpeed * GameManager.Instance.CurrentDifficulty);
         spawnTimer += Time.deltaTime;
         if (spawnTimer > maxSpawnRate * (1 - GameManager.Instance.CurrentDifficulty))
         {
             spawnTimer = 0;
             SpawnLillyRow();
         }
-        
-        currentMapSpeed = (maxMapSpeed * GameManager.Instance.CurrentDifficulty);
     }
 
     public void GenerateMap()
@@ -80,6 +84,7 @@ public class Map : MonoBehaviour
 
         // disable all current lillypads and start over
         ClearMap();
+        currentMapSpeed = (maxMapSpeed * GameManager.Instance.CurrentDifficulty);
 
         // add starter rows
         for (int i = 0; i < starterPads; i++)
@@ -113,6 +118,7 @@ public class Map : MonoBehaviour
         lilyPool.DeactivatePoolObjects();
         flyPool.DeactivatePoolObjects();
         flowerPool.DeactivatePoolObjects();
+        sinkPool.DeactivatePoolObjects();
     }
 
     void SpawnLillyRow(float startingZ = -1)
@@ -165,6 +171,9 @@ public class Map : MonoBehaviour
                 break;
             case LillyPad.Type.Flower:
                 o = flowerPool.GetInactiveObject();
+                break;
+            case LillyPad.Type.Sink:
+                o = sinkPool.GetInactiveObject();
                 break;
         }
         if (o != null)

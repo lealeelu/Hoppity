@@ -26,7 +26,7 @@ public class LillyPad : MonoBehaviour
         Normal,
         Fly,
         Flower,
-        Small
+        Sink
     }
 
     private void Start()
@@ -64,6 +64,6 @@ public class LillyPad : MonoBehaviour
 
     public static Type GetRandomType()
     {
-        return (Type)Random.Range(0, 3);
+        return (Type)Random.Range(0, 4);
     }
 }

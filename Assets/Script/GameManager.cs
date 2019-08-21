@@ -169,6 +169,9 @@ public class GameManager : Singleton<GameManager>
 
     public void SetBoard()
     {
+        gameTimer = 0.001f;
+        _currentDifficulty = difficultyCurve.Evaluate(gameTimer / MaxGameTime);
+
         frog.gameObject.SetActive(true);
         map.GenerateMap();
         flyCountBar.SetValue(0);
