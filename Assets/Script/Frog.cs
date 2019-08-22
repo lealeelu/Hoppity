@@ -8,6 +8,8 @@ public class Frog : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private float splashPlayAheadPercent = 0.80f;
+    [SerializeField]
+    private Transform frogObject;
 
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
@@ -22,7 +24,6 @@ public class Frog : MonoBehaviour
     private Vector3 oldLocation;
     private float startingAnimationLength = 0.625f;
     private float currentAnimationLength = 0.625f;
-    private float sinkAnimationLength = 1.167f;
     private float currentJumpTime = 0;
     
     private void Update()
@@ -76,7 +77,7 @@ public class Frog : MonoBehaviour
         //Increase Jump Speed
         currentAnimationLength = startingAnimationLength * (1 - GameManager.Instance.CurrentDifficulty);
         animator.speed = 1 + GameManager.Instance.CurrentDifficulty;
-        Debug.Log(string.Format("{0} {1}", currentAnimationLength, animator.speed));
+        //Debug.Log(string.Format("{0} {1}", currentAnimationLength, animator.speed));
 
     }
 
@@ -114,7 +115,7 @@ public class Frog : MonoBehaviour
         targetJumpLocation = lillyPad.GetLillyTransform().position + new Vector3(0, 0, -lillyPad.speed * currentAnimationLength);
 
         //face that direction
-        transform.LookAt(targetJumpLocation);
+        frogObject.LookAt(targetJumpLocation);
 
         //set that as the jumptarget and ignore where the lilly is currently
         animator.SetTrigger("jump");

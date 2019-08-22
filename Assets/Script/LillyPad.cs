@@ -20,6 +20,8 @@ public class LillyPad : MonoBehaviour
     private Animation flyAnimation;
     [SerializeField]
     private GameObject fly;
+    [SerializeField]
+    private Outline outline;
     
     public enum Type
     {
@@ -37,9 +39,25 @@ public class LillyPad : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "LillyDeadZone")
+        switch (other.transform.tag)
         {
-            gameObject.SetActive(false);
+            case "LillyDeadZone":
+                gameObject.SetActive(false);
+                break;
+            case "JumpRangeShort":
+                outline.enabled = true;
+                break;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        switch (other.transform.tag)
+        {
+            case "JumpRangeShort":
+                outline.enabled = false;
+                break;
         }
     }
 

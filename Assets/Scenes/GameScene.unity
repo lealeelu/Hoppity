@@ -3875,7 +3875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55, y: -55.000122}
+  m_AnchoredPosition: {x: 55, y: -55}
   m_SizeDelta: {x: 218.1, y: 218.1}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1377968347
@@ -4805,7 +4805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55, y: -55.000122}
+  m_AnchoredPosition: {x: 55, y: -55}
   m_SizeDelta: {x: 218.1, y: 218.1}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1527736489
@@ -7911,11 +7911,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyPad
       objectReference: {fileID: 0}
-    - target: {fileID: 5877051941519853127, guid: 13f41eddead344440ae12d571138216b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5877051941519853147, guid: 13f41eddead344440ae12d571138216b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8053,6 +8048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FlowerPad
+      objectReference: {fileID: 0}
+    - target: {fileID: 174259951591968188, guid: 1c1514021252bb84194d0ae4ab8e3066,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 174259951591968160, guid: 1c1514021252bb84194d0ae4ab8e3066,
         type: 3}

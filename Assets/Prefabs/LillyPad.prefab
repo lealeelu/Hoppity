@@ -86,6 +86,24 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &3920868360455487124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3103919889685815355}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.85882354, g: 1, b: 0, a: 0.8}
+  outlineWidth: 0.28
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3677190424246048342
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +171,7 @@ MonoBehaviour:
   lillyTransform: {fileID: 2109953369814127144}
   flyAnimation: {fileID: 0}
   fly: {fileID: 0}
+  outline: {fileID: 3920868360455487124}
 --- !u!1001 &6355348353025407282
 PrefabInstance:
   m_ObjectHideFlags: 0

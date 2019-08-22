@@ -7,6 +7,7 @@ TagManager:
   - LillyPad
   - DeadZone
   - LillyDeadZone
+  - JumpRangeShort
   layers:
   - Default
   - TransparentFX
