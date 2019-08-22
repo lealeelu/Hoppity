@@ -10,6 +10,10 @@ public class Frog : MonoBehaviour
     private float splashPlayAheadPercent = 0.80f;
     [SerializeField]
     private Transform frogObject;
+    [SerializeField]
+    private Collider nextRowCollider;
+    [SerializeField]
+    private Collider powerUpCollider;
 
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
@@ -25,7 +29,8 @@ public class Frog : MonoBehaviour
     private float startingAnimationLength = 0.625f;
     private float currentAnimationLength = 0.625f;
     private float currentJumpTime = 0;
-    
+    private bool superModeActive = false;
+
     private void Update()
     {
         if (!GameManager.Instance.Playing) return;
@@ -46,12 +51,7 @@ public class Frog : MonoBehaviour
                 }
                 if (jumpingLillyPad.type == LillyPad.Type.Fly)
                 {
-                    GameManager.Instance.flyCountBar.Increment();
-                    if (GameManager.Instance.flyCountBar.ReachedMax())
-                    {
-                        ActivateSuperMode();
-                        GameManager.Instance.flyCountBar.SetValue(0);
-                    }
+                    GameManager.Instance.AddFirefly();
                 }
 
                 currentLillyPad = jumpingLillyPad;
@@ -98,9 +98,8 @@ public class Frog : MonoBehaviour
 
     public void JumpToLillyPad(LillyPad lillyPad, float speed)
     {
-        //MAYBE: add speed accuracy to jump
         if (lillyPad.lillyNumber < currentLillyPad.lillyNumber
-            || lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1
+            || (lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1 && !superModeActive)
             || jumping
             || !canJump) return;
 
@@ -139,6 +138,18 @@ public class Frog : MonoBehaviour
 
     public void ActivateSuperMode()
     {
+        nextRowCollider.enabled = false;
+        powerUpCollider.enabled = true;
+        superModeActive = true;
+        GameManager.Instance.DeactivateSuperModeButton();
+        StartCoroutine(PlaySuperMode());
+    }
 
+    IEnumerator PlaySuperMode()
+    {
+        yield return new WaitForSeconds(5f);
+        nextRowCollider.enabled = true;
+        powerUpCollider.enabled = false;
+        superModeActive = false;
     }
 }

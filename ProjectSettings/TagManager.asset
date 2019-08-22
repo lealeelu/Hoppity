@@ -8,6 +8,7 @@ TagManager:
   - DeadZone
   - LillyDeadZone
   - JumpRangeShort
+  - JumpRangeLong
   layers:
   - Default
   - TransparentFX

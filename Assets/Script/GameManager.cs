@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -36,6 +37,10 @@ public class GameManager : Singleton<GameManager>
     private TextMeshProUGUI versionText;
     [SerializeField]
     public FillBar flyCountBar;
+    [SerializeField]
+    private Button superModeButton;
+    [SerializeField]
+    private Animation superModeButtonAnimation;
     [SerializeField]
     private float MaxGameTime = 240f;
 
@@ -172,6 +177,25 @@ public class GameManager : Singleton<GameManager>
         gameOverPanel.SetActive(false);
 
         AudioManager.Instance.PlayFlowingWater();
+    }
+
+    public void AddFirefly()
+    {
+        flyCountBar.Increment();
+        if (flyCountBar.ReachedMax())
+        {
+            frog.ActivateSuperMode();
+            flyCountBar.SetValue(0);
+            superModeButton.enabled = true;
+            //start flashing animation on button so the player knows they can use it.
+            superModeButtonAnimation.Play("ButtonPulse");
+        }
+    }
+
+    public void DeactivateSuperModeButton()
+    {
+        superModeButtonAnimation.Play("ButtonIdle");
+        superModeButton.enabled = false;
     }
 
     public void UpdateScore(float newScore)
