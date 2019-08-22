@@ -5,7 +5,8 @@ Shader "Particle/Additive and Alphablend"
 	Properties
 	{
 		_MainTex("_MainTex RGBA", 2D) = "white" {}
-		_ColorTint("ColorTint", Color) = (1,1,1,1)
+		_ColorTintAdd("ColorTintAdd", Color) = (1,1,1,1)
+		_ColorTintMult("ColorTintMult", Color) = (1,1,1,1)
 	}
 
 		Category
@@ -27,7 +28,7 @@ Shader "Particle/Additive and Alphablend"
 		#include "UnityCG.cginc"
 
 		sampler2D _MainTex;
-		float4 _ColorTint;
+		float4 _ColorTintMult;
 
 		struct appdata_t {
 			fixed4 vertex : POSITION;
@@ -49,7 +50,7 @@ Shader "Particle/Additive and Alphablend"
 			o.vertex = UnityObjectToClipPos(v.vertex);
 			o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 			o.color = v.color;
-			o.color.a = _ColorTint.a;
+			o.color.a = _ColorTintMult.a;
 
 			return o;
 		}
@@ -75,7 +76,7 @@ Shader "Particle/Additive and Alphablend"
 			#include "UnityCG.cginc"
 
 			sampler2D _MainTex;
-			float4 _ColorTint;
+			float4 _ColorTintAdd;
 
 			struct appdata_t {
 				fixed4 vertex : POSITION;
@@ -97,7 +98,7 @@ Shader "Particle/Additive and Alphablend"
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.color = v.color;
-				o.color.a = _ColorTint.a;
+				o.color.a = _ColorTintAdd.a;
 
 				return o;
 			}

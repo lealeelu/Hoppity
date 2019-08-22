@@ -56,6 +56,6 @@ public class FillBar : MonoBehaviour
 
     public void Increment(int byAmount = 1)
     {
-        SetValue(_value + byAmount);
+        if (_value < Max) SetValue(_value + byAmount);
     }
 }

@@ -14,6 +14,10 @@ public class Frog : MonoBehaviour
     private Collider nextRowCollider;
     [SerializeField]
     private Collider powerUpCollider;
+    [SerializeField]
+    private GameObject wings;
+    [SerializeField]
+    private GameObject rainbow;
 
     private LillyPad currentLillyPad;
     private LillyPad jumpingLillyPad;
@@ -141,15 +145,19 @@ public class Frog : MonoBehaviour
         nextRowCollider.enabled = false;
         powerUpCollider.enabled = true;
         superModeActive = true;
+        wings.SetActive(true);
+        rainbow.SetActive(true);
         GameManager.Instance.DeactivateSuperModeButton();
         StartCoroutine(PlaySuperMode());
     }
 
     IEnumerator PlaySuperMode()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
         nextRowCollider.enabled = true;
         powerUpCollider.enabled = false;
         superModeActive = false;
+        wings.SetActive(false);
+        rainbow.SetActive(false);
     }
 }

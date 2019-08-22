@@ -184,8 +184,6 @@ public class GameManager : Singleton<GameManager>
         flyCountBar.Increment();
         if (flyCountBar.ReachedMax())
         {
-            frog.ActivateSuperMode();
-            flyCountBar.SetValue(0);
             superModeButton.enabled = true;
             //start flashing animation on button so the player knows they can use it.
             superModeButtonAnimation.Play("ButtonPulse");
@@ -194,6 +192,7 @@ public class GameManager : Singleton<GameManager>
 
     public void DeactivateSuperModeButton()
     {
+        flyCountBar.SetValue(0);
         superModeButtonAnimation.Play("ButtonIdle");
         superModeButton.enabled = false;
     }
