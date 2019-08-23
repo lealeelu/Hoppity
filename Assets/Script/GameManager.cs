@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
     [Header("Settings")]
     [SerializeField]
     public AnimationCurve difficultyCurve;
+    [SerializeField]
+    public float SuperModeLength = 6f;
 
     [Header("References")]
     [SerializeField]
@@ -50,6 +52,7 @@ public class GameManager : Singleton<GameManager>
     private static string placementID = "gameOverBanner";
     private float gameTimer;
     private float _currentDifficulty;
+    public bool SuperModeActive = false;
 
     public float CurrentDifficulty
     {
@@ -81,6 +84,7 @@ public class GameManager : Singleton<GameManager>
         }
         Advertisement.Initialize(gameID, true);
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        flyCountBar.OnCountdownFinished = DeactivateSuperMode;
     }
 
     // Update is called once per frame
@@ -184,17 +188,27 @@ public class GameManager : Singleton<GameManager>
         flyCountBar.Increment();
         if (flyCountBar.ReachedMax())
         {
-            superModeButton.enabled = true;
-            //start flashing animation on button so the player knows they can use it.
-            superModeButtonAnimation.Play("ButtonPulse");
+            if (!superModeButton.enabled)
+            {
+                superModeButton.enabled = true;
+                //start flashing animation on button so the player knows they can use it.
+                superModeButtonAnimation.Play("ButtonPulse");
+            }            
         }
     }
 
-    public void DeactivateSuperModeButton()
+    public void ActivateSuperMode()
     {
-        flyCountBar.SetValue(0);
         superModeButtonAnimation.Play("ButtonIdle");
         superModeButton.enabled = false;
+        flyCountBar.CountDown(SuperModeLength);
+        SuperModeActive = true;
+        frog.ActivateSuperMode();
+    }
+
+    public void DeactivateSuperMode()
+    {
+        frog.StopSuperMode();
     }
 
     public void UpdateScore(float newScore)

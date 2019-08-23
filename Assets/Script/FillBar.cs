@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,15 +17,36 @@ public class FillBar : MonoBehaviour
     [SerializeField]
     private int Starting = 0;
 
-    private int _value;
+    private bool countingDown;
+    private float countdown;
+    private float _value;
     private float stepWidth;
+    public Action OnCountdownFinished;
 
-    public int GetValue()
+    private void Update()
+    {
+        if (countingDown)
+        {
+            _value -= (Time.deltaTime * (Max / countdown));
+            if (_value > 0)
+            {
+                SetValue(_value);
+            }
+            else
+            {
+                SetValue(0f);
+                countingDown = false;
+                OnCountdownFinished.Invoke();
+            }
+        }    
+    }
+
+    public float GetValue()
     {
         return _value;
     }
 
-    public void SetValue(int value)
+    public void SetValue(float value)
     {
         if (value > Max)
         {
@@ -57,5 +79,11 @@ public class FillBar : MonoBehaviour
     public void Increment(int byAmount = 1)
     {
         if (_value < Max) SetValue(_value + byAmount);
+    }
+
+    internal void CountDown(float superModeLength)
+    {
+        countingDown = true;
+        countdown = superModeLength;
     }
 }

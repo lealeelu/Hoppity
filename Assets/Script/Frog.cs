@@ -33,7 +33,6 @@ public class Frog : MonoBehaviour
     private float startingAnimationLength = 0.625f;
     private float currentAnimationLength = 0.625f;
     private float currentJumpTime = 0;
-    private bool superModeActive = false;
 
     private void Update()
     {
@@ -103,7 +102,7 @@ public class Frog : MonoBehaviour
     public void JumpToLillyPad(LillyPad lillyPad, float speed)
     {
         if (lillyPad.lillyNumber < currentLillyPad.lillyNumber
-            || (lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1 && !superModeActive)
+            || (lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1 && !GameManager.Instance.SuperModeActive)
             || jumping
             || !canJump) return;
 
@@ -144,19 +143,14 @@ public class Frog : MonoBehaviour
     {
         nextRowCollider.enabled = false;
         powerUpCollider.enabled = true;
-        superModeActive = true;
         wings.SetActive(true);
         rainbow.SetActive(true);
-        GameManager.Instance.DeactivateSuperModeButton();
-        StartCoroutine(PlaySuperMode());
     }
 
-    IEnumerator PlaySuperMode()
+    public void StopSuperMode()
     {
-        yield return new WaitForSeconds(6f);
         nextRowCollider.enabled = true;
         powerUpCollider.enabled = false;
-        superModeActive = false;
         wings.SetActive(false);
         rainbow.SetActive(false);
     }
