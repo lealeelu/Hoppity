@@ -101,10 +101,13 @@ public class Frog : MonoBehaviour
 
     public void JumpToLillyPad(LillyPad lillyPad, float speed)
     {
-        if (lillyPad.lillyNumber < currentLillyPad.lillyNumber
-            || (lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1 && !GameManager.Instance.SuperModeActive)
-            || jumping
-            || !canJump) return;
+        if (jumping || !canJump) return;
+        if (GameManager.Instance.SuperModeActive)
+        {
+            
+        }
+        else if (lillyPad.lillyNumber < currentLillyPad.lillyNumber
+            || lillyPad.lillyNumber > currentLillyPad.lillyNumber + 1) return;
 
         //Setting up variables for new jump
         jumping = true;

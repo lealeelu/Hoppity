@@ -71,6 +71,7 @@ public class LillyPad : MonoBehaviour
     {
         this.speed = speed;
         this.lillyNumber = lilyNumber;
+        outline.enabled = false;
         if (type == Type.Fly) fly.SetActive(true);
         if (type == Type.Sink) bounceAnimation.Play("LillyIdle");
     }

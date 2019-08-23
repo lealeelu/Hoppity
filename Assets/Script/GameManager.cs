@@ -209,6 +209,7 @@ public class GameManager : Singleton<GameManager>
     public void DeactivateSuperMode()
     {
         frog.StopSuperMode();
+        SuperModeActive = false;
     }
 
     public void UpdateScore(float newScore)
