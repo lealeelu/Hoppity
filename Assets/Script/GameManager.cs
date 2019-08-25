@@ -44,6 +44,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Animation superModeButtonAnimation;
     [SerializeField]
+    private AddPointUI notificationUI;
+    [SerializeField]
     private float MaxGameTime = 240f;
 
     private float highScore = 0;
@@ -53,6 +55,7 @@ public class GameManager : Singleton<GameManager>
     private float gameTimer;
     private float _currentDifficulty;
     public bool SuperModeActive = false;
+    private Camera camera;
 
     public float CurrentDifficulty
     {
@@ -75,6 +78,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        camera = Camera.main;
         startPanel.SetActive(true);
         versionText.text = string.Format("Version {0}", Application.version);
         if (PlayerPrefs.HasKey("HighScore"))
@@ -218,6 +222,17 @@ public class GameManager : Singleton<GameManager>
     {
         currentScore = newScore;
         scoreText.text = ((int)newScore).ToString("D10");
+    }
+
+    public void ShowNotification(string text, Vector3 position)
+    {
+        Vector3 screenPos = camera.WorldToScreenPoint(position);
+        notificationUI.ShowPoints(text, new Vector2(screenPos.x, screenPos.y));
+    }
+
+    public void ShowNotification(string text, Vector2 position)
+    {
+        notificationUI.ShowPoints(text, position);
     }
 
     public void Settings(bool open)

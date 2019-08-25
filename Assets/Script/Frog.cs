@@ -43,16 +43,20 @@ public class Frog : MonoBehaviour
             if (currentJumpTime > currentAnimationLength)
             {
                 jumpingLillyPad.SplashAnimate();
-                if (jumpingLillyPad.type == LillyPad.Type.Flower)
+                switch(jumpingLillyPad.type)
                 {
-                    animator.SetTrigger("Slip");
-                    canJump = false;
-                    StartCoroutine(WaitForSlipEnd());
+                    case LillyPad.Type.Flower:
+                        animator.SetTrigger("Slip");
+                        canJump = false;
+                        StartCoroutine(WaitForSlipEnd());
+                        break;
+                    case LillyPad.Type.Fly:
+                        GameManager.Instance.ShowNotification("+50", transform.position);
+                        GameManager.Instance.AddFirefly();
+                        break;
                 }
-                if (jumpingLillyPad.type == LillyPad.Type.Fly)
-                {
-                    GameManager.Instance.AddFirefly();
-                }
+
+
                 Vector3 distanceA = new Vector3(0, 0, currentLillyPad.transform.position.z);
                 Vector3 distanceB = new Vector3(0, 0, jumpingLillyPad.transform.position.z);
                 distanceTraveled += Mathf.Abs(Vector3.Distance(distanceA, distanceB)) * jumpingSpeedBase;
