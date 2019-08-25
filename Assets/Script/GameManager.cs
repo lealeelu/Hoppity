@@ -46,13 +46,14 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private AddPointUI notificationUI;
     [SerializeField]
-    private float MaxGameTime = 240f;
+    public float MaxGameTime = 240f;
 
     private float highScore = 0;
     private float currentScore = 0;
     private static string gameID = "3254786";
     private static string placementID = "gameOverBanner";
-    private float gameTimer;
+    // Time since start of this playthrough
+    public float gameTimer;
     private float _currentDifficulty;
     public bool SuperModeActive = false;
     private Camera camera;
