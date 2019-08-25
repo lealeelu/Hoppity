@@ -39,9 +39,6 @@ public class Frog : MonoBehaviour
         if (!GameManager.Instance.Playing) return;
         if (jumping)
         {
-            distanceTraveled += jumpingSpeedBase * Time.smoothDeltaTime * 10;
-            GameManager.Instance.UpdateScore(distanceTraveled);
-
             //Something with this timing logic is off.
             if (currentJumpTime > currentAnimationLength)
             {
@@ -56,6 +53,10 @@ public class Frog : MonoBehaviour
                 {
                     GameManager.Instance.AddFirefly();
                 }
+                Vector3 distanceA = new Vector3(0, 0, currentLillyPad.transform.position.z);
+                Vector3 distanceB = new Vector3(0, 0, jumpingLillyPad.transform.position.z);
+                distanceTraveled += Mathf.Abs(Vector3.Distance(distanceA, distanceB)) * jumpingSpeedBase;
+                GameManager.Instance.UpdateScore(distanceTraveled);
 
                 currentLillyPad = jumpingLillyPad;
                 jumping = false;

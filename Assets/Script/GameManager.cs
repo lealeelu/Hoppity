@@ -147,6 +147,8 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitForSeconds(0.5f);
         }
         Advertisement.Banner.Show(placementID);
+#else
+        yield return null;
 #endif
     }
 
