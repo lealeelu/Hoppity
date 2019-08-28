@@ -134,6 +134,11 @@ public class GameManager : Singleton<GameManager>
         {
             DeactivateSuperMode();
         }
+        if (superModeButton.enabled)
+        {
+            superModeButtonAnimation.Play("ButtonIdle");
+            superModeButton.enabled = false;
+        }
         //save score to file
         if (currentScore > highScore)
         {
