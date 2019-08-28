@@ -8,11 +8,7 @@ public class AudioManager : Singleton<AudioManager>
     private AudioSource source;
 
     [SerializeField]
-    private AudioSource bgmIntro;
-    [SerializeField]
-    private double loopStartAdjust = 0.15;
-    [SerializeField]
-    private AudioSource bgmLoop;
+    private AudioSource[] bgmSources;
 
     [SerializeField]
     private AudioClip[] splashClips;
@@ -27,15 +23,19 @@ public class AudioManager : Singleton<AudioManager>
     {
        if (play)
        {
-            double introDuration = (double)bgmIntro.clip.samples / bgmIntro.clip.frequency;
             double startTime = AudioSettings.dspTime + 0.2;
-            bgmIntro.PlayScheduled(startTime);
-            bgmLoop.PlayScheduled(startTime + introDuration - loopStartAdjust);
+            for (int i = 0; i < bgmSources.Length; i++)
+            {
+                bgmSources[i].PlayScheduled(startTime);
+                startTime += (double)bgmSources[i].clip.samples / bgmSources[i].clip.frequency;
+            }
        }
        else
        {
-            bgmIntro.Stop();
-            bgmLoop.Stop();
+            for (int i = 0; i < bgmSources.Length; i++)
+            {
+                bgmSources[i].Stop();
+            }
        }
     }
 }
