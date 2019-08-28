@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField]
     private AudioSource source;
 
     [SerializeField]
-    private AudioSource bgm;
+    private AudioSource bgmIntro;
+    [SerializeField]
+    private double loopStartAdjust = 0.15;
+    [SerializeField]
+    private AudioSource bgmLoop;
 
     [SerializeField]
     private AudioClip[] splashClips;
@@ -20,15 +23,19 @@ public class AudioManager : Singleton<AudioManager>
         source.PlayOneShot(splashClips[clipid]);
     }
 
-    public void PlayFlowingWater(bool play = true)
+    public void PlayBG(bool play = true)
     {
        if (play)
        {
-            bgm.Play();
+            double introDuration = (double)bgmIntro.clip.samples / bgmIntro.clip.frequency;
+            double startTime = AudioSettings.dspTime + 0.2;
+            bgmIntro.PlayScheduled(startTime);
+            bgmLoop.PlayScheduled(startTime + introDuration - loopStartAdjust);
        }
        else
        {
-            bgm.Stop();
+            bgmIntro.Stop();
+            bgmLoop.Stop();
        }
     }
 }

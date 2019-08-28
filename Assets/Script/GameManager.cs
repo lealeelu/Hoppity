@@ -129,7 +129,7 @@ public class GameManager : Singleton<GameManager>
     public void EndGame()
     {
         _playing = false;
-        AudioManager.Instance.PlayFlowingWater(false);
+        AudioManager.Instance.PlayBG(false);
         //save score to file
         if (currentScore > highScore)
         {
@@ -187,7 +187,7 @@ public class GameManager : Singleton<GameManager>
         startPanel.SetActive(false);
         gameOverPanel.SetActive(false);
 
-        AudioManager.Instance.PlayFlowingWater();
+        AudioManager.Instance.PlayBG();
     }
 
     public void AddFirefly()
