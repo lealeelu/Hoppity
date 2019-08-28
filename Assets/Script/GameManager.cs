@@ -130,6 +130,10 @@ public class GameManager : Singleton<GameManager>
     {
         _playing = false;
         AudioManager.Instance.PlayBG(false);
+        if(SuperModeActive)
+        {
+            DeactivateSuperMode();
+        }
         //save score to file
         if (currentScore > highScore)
         {
@@ -215,6 +219,7 @@ public class GameManager : Singleton<GameManager>
 
     public void DeactivateSuperMode()
     {
+        flyCountBar.StopCountdown();
         frog.StopSuperMode();
         SuperModeActive = false;
     }

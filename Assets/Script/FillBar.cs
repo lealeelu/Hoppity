@@ -86,4 +86,11 @@ public class FillBar : MonoBehaviour
         countingDown = true;
         countdown = superModeLength;
     }
+
+    //Used for gameover
+    public void StopCountdown()
+    {
+        countingDown = false;
+        SetValue(0);
+    }
 }
