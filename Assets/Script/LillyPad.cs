@@ -11,15 +11,11 @@ public class LillyPad : MonoBehaviour
     [SerializeField]
     public int lillyNumber;
     [SerializeField]
-    private Animation bounceAnimation;
+    internal Animation bounceAnimation;
     [SerializeField]
     private Animation splashAnimation;
     [SerializeField]
     private Transform lillyTransform;
-    [SerializeField]
-    private Animation flyAnimation;
-    [SerializeField]
-    private GameObject fly;
     [SerializeField]
     private Outline outline;
     
@@ -27,6 +23,7 @@ public class LillyPad : MonoBehaviour
     {
         Normal,
         Fly,
+        FlyMult,
         Flower,
         Sink
     }
@@ -67,20 +64,17 @@ public class LillyPad : MonoBehaviour
         }
     }
 
-    public void SetLilly(float speed, int lilyNumber)
+    public virtual void SetLilly(float speed, int lilyNumber)
     {
         this.speed = speed;
         this.lillyNumber = lilyNumber;
         outline.enabled = false;
-        if (type == Type.Fly) fly.SetActive(true);
-        if (type == Type.Sink) bounceAnimation.Play("LillyIdle");
     }
 
-    public void SplashAnimate()
+    public virtual void SplashAnimate()
     {
         splashAnimation.Play();
         bounceAnimation.Play();
-        if (type == Type.Fly) fly.SetActive(false);
     }
 
     public Transform GetLillyTransform()
@@ -90,7 +84,7 @@ public class LillyPad : MonoBehaviour
 
     public static Type GetRandomType()
     {
-        return (Type)Random.Range(0, 4);
+        return (Type)Random.Range(0, 5);
     }
 
 }

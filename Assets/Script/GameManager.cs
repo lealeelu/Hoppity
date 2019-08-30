@@ -87,7 +87,11 @@ public class GameManager : Singleton<GameManager>
             highScore = PlayerPrefs.GetFloat("HighScore");
             highScoreText.text = ((int)highScore).ToString("D10");
         }
+#if UNITY_EDITOR
         Advertisement.Initialize(gameID, true);
+#else
+        Advertisement.Initialize(gameID, false);
+#endif
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
         flyCountBar.OnCountdownFinished = DeactivateSuperMode;
     }
@@ -185,6 +189,7 @@ public class GameManager : Singleton<GameManager>
 
     public void SetBoard()
     {
+        UpdateScore(0);
         gameTimer = 0.001f;
         _currentDifficulty = difficultyCurve.Evaluate(gameTimer / MaxGameTime);
 
@@ -199,9 +204,9 @@ public class GameManager : Singleton<GameManager>
         AudioManager.Instance.PlayBG();
     }
 
-    public void AddFirefly()
+    public void AddFirefly(int count = 1)
     {
-        flyCountBar.Increment();
+        flyCountBar.Increment(count);
         if (flyCountBar.ReachedMax())
         {
             if (!superModeButton.enabled)
@@ -233,6 +238,12 @@ public class GameManager : Singleton<GameManager>
     {
         currentScore = newScore;
         scoreText.text = ((int)newScore).ToString("D10");
+    }
+
+    public void AddToScore(float morePoints)
+    {
+        currentScore += morePoints;
+        scoreText.text = ((int)currentScore).ToString("D10");
     }
 
     public void ShowNotification(string text, Vector3 position)

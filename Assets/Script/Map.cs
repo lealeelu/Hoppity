@@ -12,6 +12,8 @@ public class Map : MonoBehaviour
     [SerializeField]
     private GameObject flyLilyPadPrefab;
     [SerializeField]
+    private GameObject flyMultLilyPadPrefab;
+    [SerializeField]
     private GameObject sinkLilyPadPrefab;
 
     [Header("Settings")]
@@ -41,6 +43,7 @@ public class Map : MonoBehaviour
             
     private Pool lilyPool;
     private Pool flyPool;
+    private Pool flyMultPool;
     private Pool flowerPool;
     private Pool sinkPool;
     private float gameStart;
@@ -57,6 +60,9 @@ public class Map : MonoBehaviour
 
         flyPool = new Pool(flyLilyPadPrefab);
         flyPool.LoadPool(15);
+
+        flyMultPool = new Pool(flyMultLilyPadPrefab);
+        flyMultPool.LoadPool(10);
 
         flowerPool = new Pool(flowerLilyPadPrefab);
         flowerPool.LoadPool(15);
@@ -117,6 +123,7 @@ public class Map : MonoBehaviour
     {
         lilyPool.DeactivatePoolObjects();
         flyPool.DeactivatePoolObjects();
+        flyMultPool.DeactivatePoolObjects();
         flowerPool.DeactivatePoolObjects();
         sinkPool.DeactivatePoolObjects();
     }
@@ -168,6 +175,9 @@ public class Map : MonoBehaviour
                 break;
             case LillyPad.Type.Fly:
                 o = flyPool.GetInactiveObject();
+                break;
+            case LillyPad.Type.FlyMult:
+                o = flyMultPool.GetInactiveObject();
                 break;
             case LillyPad.Type.Flower:
                 o = flowerPool.GetInactiveObject();

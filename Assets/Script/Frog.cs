@@ -27,7 +27,6 @@ public class Frog : MonoBehaviour
     //This will reflect the accuracy of the jump so we can reward the player
     //with a faster jump
     private float jumpingSpeedBase = 2;
-    private float distanceTraveled = 0;
     private Vector3 targetJumpLocation;
     private Vector3 oldLocation;
     private float startingAnimationLength = 0.625f;
@@ -39,28 +38,19 @@ public class Frog : MonoBehaviour
         if (!GameManager.Instance.Playing) return;
         if (jumping)
         {
-            //Something with this timing logic is off.
             if (currentJumpTime > currentAnimationLength)
             {
                 jumpingLillyPad.SplashAnimate();
-                switch(jumpingLillyPad.type)
+                if (jumpingLillyPad.type == LillyPad.Type.Flower)
                 {
-                    case LillyPad.Type.Flower:
-                        animator.SetTrigger("Slip");
-                        canJump = false;
-                        StartCoroutine(WaitForSlipEnd());
-                        break;
-                    case LillyPad.Type.Fly:
-                        GameManager.Instance.ShowNotification("+50", transform.position);
-                        GameManager.Instance.AddFirefly();
-                        break;
+                    animator.SetTrigger("Slip");
+                    canJump = false;
+                    StartCoroutine(WaitForSlipEnd());
                 }
-
 
                 Vector3 distanceA = new Vector3(0, 0, currentLillyPad.transform.position.z);
                 Vector3 distanceB = new Vector3(0, 0, jumpingLillyPad.transform.position.z);
-                distanceTraveled += Mathf.Abs(Vector3.Distance(distanceA, distanceB)) * jumpingSpeedBase;
-                GameManager.Instance.UpdateScore(distanceTraveled);
+                GameManager.Instance.AddToScore(Mathf.Abs(Vector3.Distance(distanceA, distanceB)) * jumpingSpeedBase);
 
                 currentLillyPad = jumpingLillyPad;
                 jumping = false;
@@ -135,10 +125,8 @@ public class Frog : MonoBehaviour
     public void TeleportToLillyPad(LillyPad lillyPad)
     {
         //reset variables
-        distanceTraveled = 0;
         currentAnimationLength = startingAnimationLength;
         animator.speed = 1;
-        GameManager.Instance.UpdateScore(distanceTraveled);
 
         currentLillyPad = lillyPad;
         transform.position = currentLillyPad.GetLillyTransform().position;
