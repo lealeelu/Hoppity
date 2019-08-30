@@ -225,12 +225,14 @@ public class GameManager : Singleton<GameManager>
         flyCountBar.CountDown(SuperModeLength);
         SuperModeActive = true;
         frog.ActivateSuperMode();
+        AudioManager.Instance.PlaySuperMode();
     }
 
     public void DeactivateSuperMode()
     {
         flyCountBar.StopCountdown();
         frog.StopSuperMode();
+        AudioManager.Instance.StopSuperMode();
         SuperModeActive = false;
     }
 

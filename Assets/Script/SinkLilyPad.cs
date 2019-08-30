@@ -9,4 +9,10 @@ public class SinkLilyPad : LillyPad
         base.SetLilly(speed, lilyNumber);
         base.bounceAnimation.Play("LillyIdle");
     }
+
+    public override void SplashAnimate()
+    {
+        base.SplashAnimate();
+        AudioManager.Instance.PlaySink();
+    }
 }

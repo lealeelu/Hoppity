@@ -119,6 +119,8 @@ public class Frog : MonoBehaviour
 
         //set that as the jumptarget and ignore where the lilly is currently
         animator.SetTrigger("jump");
+
+        AudioManager.Instance.PlayHop();
     }
 
     //This is run at the start of every game, so this is practicly the startgame()
