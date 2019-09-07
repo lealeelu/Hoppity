@@ -638,6 +638,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7422017842352989301, guid: 13f41eddead344440ae12d571138216b,
         type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422017842352989301, guid: 13f41eddead344440ae12d571138216b,
+        type: 3}
       propertyPath: points
       value: 50
       objectReference: {fileID: 0}

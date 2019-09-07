@@ -116,7 +116,14 @@ public class GameManager : Singleton<GameManager>
                 {
                     //jump to that lillypad
                     LillyPad lily = hit.transform.gameObject.GetComponent<LillyPad>();
-                    frog.JumpToLillyPad(lily, 2);
+                    if (lily.GetType() == typeof(SinkLilyPad))
+                    {
+                        if (!((SinkLilyPad)lily).sinking) frog.JumpToLillyPad(lily, 2);
+                    }
+                    else
+                    {
+                        frog.JumpToLillyPad(lily, 2);
+                    }
                     if (!_playing) StartGame();
                 }
             }
