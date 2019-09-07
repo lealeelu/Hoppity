@@ -84,7 +84,14 @@ public class LillyPad : MonoBehaviour
 
     public static Type GetRandomType()
     {
-        return (Type)Random.Range(0, 5);
+        int roll = Random.Range(0, 100);
+        Type type = Type.Normal;
+        if (roll < 8) type = Type.FlyMult;
+        else if (roll < 31) type = Type.Fly;
+        else if (roll < 54) type = Type.Flower;
+        else if (roll < 77) type = Type.Sink;
+        return type;
     }
 
 }
+

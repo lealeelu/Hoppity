@@ -90,7 +90,7 @@ public class GameManager : Singleton<GameManager>
 #if UNITY_EDITOR
         Advertisement.Initialize(gameID, true);
 #else
-        Advertisement.Initialize(gameID, false);
+        Advertisement.Initialize(gameID);
 #endif
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
         flyCountBar.OnCountdownFinished = DeactivateSuperMode;
