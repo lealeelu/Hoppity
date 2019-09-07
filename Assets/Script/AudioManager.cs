@@ -26,6 +26,32 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField]
     private AudioSource super;
 
+    private float SFXVolume;
+    private float BGMVolume;
+
+    public void SetSFXVolume(float value)
+    {
+        if (value >= 0 && value <= 1)
+        {
+            SFXVolume = value;
+            source.volume = SFXVolume;
+        }
+    }
+
+    public void SetBGMVolume(float value)
+    {
+        if (value >= 0 && value <= 1)
+        {
+            BGMVolume = value;
+            foreach (AudioSource bgmSource in bgmSources)
+            {
+                bgmSource.volume = BGMVolume;
+            }
+            death.volume = BGMVolume;
+            super.volume = BGMVolume;
+        }
+    }
+
     public void PlayButtonClick()
     {
         source.PlayOneShot(click);

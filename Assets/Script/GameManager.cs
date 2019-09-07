@@ -87,6 +87,14 @@ public class GameManager : Singleton<GameManager>
             highScore = PlayerPrefs.GetFloat("HighScore");
             highScoreText.text = ((int)highScore).ToString("D10");
         }
+        if (PlayerPrefs.HasKey("BGMVolume"))
+        {
+            AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMVolume"));
+        }
+        if (PlayerPrefs.HasKey("SFXVolume"))
+        {
+            AudioManager.Instance.SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume"));
+        }
 #if UNITY_EDITOR
         Advertisement.Initialize(gameID, true);
 #else
@@ -166,15 +174,11 @@ public class GameManager : Singleton<GameManager>
     
     IEnumerator ShowBannerWhenReady()
     {
-#if UNITY_ANDROID || UNITY_IOS
         while (!Advertisement.IsReady(placementID))
         {
             yield return new WaitForSeconds(0.5f);
         }
         Advertisement.Banner.Show(placementID);
-#else
-        yield return null;
-#endif
     }
 
     public void TryAgain()
