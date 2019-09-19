@@ -26,6 +26,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject gameOverPanel;
     [SerializeField]
+    private GameObject TutorialPanel;
+    [SerializeField]
     private GameObject SettingsPanel;
     [SerializeField]
     private GameObject StoryPanel;
@@ -56,7 +58,7 @@ public class GameManager : Singleton<GameManager>
     public float gameTimer;
     private float _currentDifficulty;
     public bool SuperModeActive = false;
-    private Camera camera;
+    private new Camera camera;
 
     public float CurrentDifficulty
     {
@@ -270,8 +272,20 @@ public class GameManager : Singleton<GameManager>
         notificationUI.ShowPoints(text, position);
     }
 
+    public void Tutorial(bool open)
+    {
+        TutorialPanel.SetActive(open);
+        startPanel.SetActive(!open);
+    }
+
     public void Settings(bool open)
     {
+        //Save settings when closing
+        if (!open)
+        {
+            PlayerPrefs.SetFloat("BGMVolume", AudioManager.Instance.GetBGMVolume());
+            PlayerPrefs.SetFloat("SFXVolume", AudioManager.Instance.GetSFXVolume());
+        }
         SettingsPanel.SetActive(open);
         startPanel.SetActive(!open);
     }
@@ -284,6 +298,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Credits(bool open)
     {
+        //if (open) CreditsPanel.GetComponent<Pages>().SetPage(0);
         CreditsPanel.SetActive(open);
         startPanel.SetActive(!open);
     }

@@ -13,8 +13,6 @@ public class Frog : MonoBehaviour
     [SerializeField]
     private Collider nextRowCollider;
     [SerializeField]
-    private Collider powerUpCollider;
-    [SerializeField]
     private GameObject wings;
     [SerializeField]
     private GameObject rainbow;

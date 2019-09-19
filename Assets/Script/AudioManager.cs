@@ -26,8 +26,13 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField]
     private AudioSource super;
 
-    private float SFXVolume;
-    private float BGMVolume;
+    private float SFXVolume = 0.5f;
+    private float BGMVolume = 0.5f;
+
+    public float GetSFXVolume()
+    {
+        return SFXVolume;
+    }
 
     public void SetSFXVolume(float value)
     {
@@ -36,6 +41,11 @@ public class AudioManager : Singleton<AudioManager>
             SFXVolume = value;
             source.volume = SFXVolume;
         }
+    }
+
+    public float GetBGMVolume()
+    {
+        return BGMVolume;
     }
 
     public void SetBGMVolume(float value)
