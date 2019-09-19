@@ -13,6 +13,8 @@ public class Frog : MonoBehaviour
     [SerializeField]
     private Collider nextRowCollider;
     [SerializeField]
+    private Animation rowColliderAnimation;
+    [SerializeField]
     private GameObject wings;
     [SerializeField]
     private GameObject rainbow;
@@ -137,16 +139,14 @@ public class Frog : MonoBehaviour
 
     public void ActivateSuperMode()
     {
-        nextRowCollider.enabled = false;
-        powerUpCollider.enabled = true;
+        rowColliderAnimation.Play("RowCollider_Grow");
         wings.SetActive(true);
         rainbow.SetActive(true);
     }
 
     public void StopSuperMode()
     {
-        nextRowCollider.enabled = true;
-        powerUpCollider.enabled = false;
+        rowColliderAnimation.Play("RowCollider_Shrink");
         wings.SetActive(false);
         rainbow.SetActive(false);
     }
