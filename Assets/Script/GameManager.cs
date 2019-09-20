@@ -285,6 +285,7 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerPrefs.SetFloat("BGMVolume", AudioManager.Instance.GetBGMVolume());
             PlayerPrefs.SetFloat("SFXVolume", AudioManager.Instance.GetSFXVolume());
+            PlayerPrefs.Save();
         }
         SettingsPanel.SetActive(open);
         startPanel.SetActive(!open);
@@ -298,7 +299,6 @@ public class GameManager : Singleton<GameManager>
 
     public void Credits(bool open)
     {
-        //if (open) CreditsPanel.GetComponent<Pages>().SetPage(0);
         CreditsPanel.SetActive(open);
         startPanel.SetActive(!open);
     }

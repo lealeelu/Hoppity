@@ -44,9 +44,6 @@ public class LillyPad : MonoBehaviour
             case "JumpRangeShort":
                 outline.enabled = true;
                 break;
-            case "JumpRangeLong":
-                outline.enabled = true;
-                break;
         }
 
     }
@@ -56,9 +53,6 @@ public class LillyPad : MonoBehaviour
         switch (other.transform.tag)
         {
             case "JumpRangeShort":
-                outline.enabled = false;
-                break;
-            case "JumpRangeLong":
                 outline.enabled = false;
                 break;
         }
